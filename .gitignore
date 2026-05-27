@@ -1,0 +1,4 @@
+http-serve*.log
+mkdocs-source/site/
+mkdocs-source/scripts/__pycache__/
+*.pyc

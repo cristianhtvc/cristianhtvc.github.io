@@ -1,0 +1,120 @@
+{
+  "site": {
+    "name": "坚守离线强化学习阵地的小陈",
+    "description": "一个专注于离线强化学习领域的博士生，但对于具身智能也很关注哟！",
+    "url": "https://example.com/",
+    "repo_url": "",
+    "tagline": "每天读一点 ORL，也顺手望一望具身智能与大模型的新风向。",
+    "daily_goal": "目标是每天阅读约 10 篇论文：重点精读 ORL，快速扫读具身智能、LLM 与智能体方向。"
+  },
+  "offline_rl": {
+    "title": "离线强化学习",
+    "description": "主阵地。系统整理 offline RL、offline preference-based RL、offline-to-online、conservative learning 与相关理论/应用论文。",
+    "venues": [
+      {
+        "id": "iclr",
+        "title": "ICLR",
+        "description": "表示学习、强化学习、偏好学习与大模型方法交汇较多，是 ORL 新思想的重要来源。",
+        "years": [
+          {"year": 2026, "papers": []},
+          {
+            "year": 2025,
+            "papers": [
+              {
+                "title": "Adversarial Policy Optimization for Offline Preference-based Reinforcement Learning",
+                "authors": "Jin et al.",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "把 offline preference-based RL 写成策略和奖励/价值模型之间的对抗博弈，用 trajectory-pair L1 deviation 与价值函数重参数化替代显式 confidence set。",
+                "tags": ["Offline PbRL", "Preference Learning", "Pessimism", "Adversarial Optimization"],
+                "source_markdown": "data/notes/orl/iclr/2025/adversarial-policy-optimization-for-offline-preference-based-reinforcement-learning.md"
+              }
+            ]
+          },
+          {"year": 2024, "papers": []},
+          {"year": 2023, "papers": []},
+          {"year": 2022, "papers": []}
+        ]
+      },
+      {
+        "id": "icml",
+        "title": "ICML",
+        "description": "方法论、理论分析和 benchmark 论文密集，适合追踪 ORL 主流技术路线。",
+        "years": [
+          {"year": 2026, "papers": []},
+          {"year": 2025, "papers": []},
+          {"year": 2024, "papers": []},
+          {"year": 2023, "papers": []},
+          {"year": 2022, "papers": []}
+        ]
+      },
+      {
+        "id": "neurips",
+        "title": "NeurIPS",
+        "description": "覆盖 RL 理论、生成模型、偏好学习与基础模型，是跨方向连接的重要入口。",
+        "years": [
+          {"year": 2026, "papers": []},
+          {"year": 2025, "papers": []},
+          {"year": 2024, "papers": []},
+          {"year": 2023, "papers": []},
+          {"year": 2022, "papers": []}
+        ]
+      },
+      {
+        "id": "aamas",
+        "title": "AAMAS",
+        "description": "多智能体、决策系统与交互学习相关工作，适合补足 ORL 在 agent 场景中的外延。",
+        "years": [
+          {"year": 2026, "papers": []},
+          {"year": 2025, "papers": []},
+          {"year": 2024, "papers": []},
+          {"year": 2023, "papers": []},
+          {"year": 2022, "papers": []}
+        ]
+      },
+      {
+        "id": "other_conferences",
+        "title": "其他会议",
+        "description": "收纳 COLT、UAI、AAAI、IJCAI、CoRL、RSS 等会议中的相关 ORL 论文。",
+        "years": [
+          {"year": 2026, "papers": []},
+          {"year": 2025, "papers": []},
+          {"year": 2024, "papers": []},
+          {"year": 2023, "papers": []},
+          {"year": 2022, "papers": []}
+        ]
+      },
+      {
+        "id": "journals",
+        "title": "期刊文章",
+        "description": "收纳 JMLR、TMLR、TPAMI、AIJ 等期刊中的 ORL 长文、综述和扩展版本。",
+        "years": [
+          {"year": 2026, "papers": []},
+          {"year": 2025, "papers": []},
+          {"year": 2024, "papers": []},
+          {"year": 2023, "papers": []},
+          {"year": 2022, "papers": []}
+        ]
+      }
+    ]
+  },
+  "embodied_llm": {
+    "title": "具身智能与 LLM",
+    "description": "副线观察区。追踪具身智能、LLM agent、多模态基础模型、机器人学习和行业产品动态。",
+    "sections": [
+      {
+        "id": "industry_updates",
+        "title": "行业最新动态",
+        "description": "记录模型发布、机器人平台、公司产品、开源项目和重要技术趋势。",
+        "items": []
+      },
+      {
+        "id": "related_papers",
+        "title": "相关论文",
+        "description": "整理具身智能、LLM agent、VLM、世界模型和机器人学习论文。",
+        "items": []
+      }
+    ]
+  }
+}

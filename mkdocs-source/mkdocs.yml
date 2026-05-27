@@ -1,0 +1,140 @@
+site_name: "坚守离线强化学习阵地的小陈"
+site_description: "一个专注于离线强化学习领域的博士生，但对于具身智能也很关注哟！"
+site_url: "https://example.com/"
+docs_dir: docs
+site_dir: site
+theme:
+  name: material
+  language: zh
+  favicon: assets/favicon.svg
+  icon:
+    logo: material/library-shelves
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tabs
+    - navigation.indexes
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  palette:
+    - media: '(prefers-color-scheme: light)'
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - media: '(prefers-color-scheme: dark)'
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.arithmatex:
+      generic: true
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+extra_css:
+  - stylesheets/extra.css
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+nav:
+  - 首页: index.md
+  - 技术栈: tech-stack.md
+  - 离线强化学习:
+      - 总览: offline_rl/index.md
+      - ICLR:
+          - 总览: offline_rl/iclr/index.md
+          - 2026:
+              - 年度总览: offline_rl/iclr/2026/index.md
+          - 2025:
+              - 年度总览: offline_rl/iclr/2025/index.md
+              - "Adversarial Policy Optimization for Offline Preference-based Reinforcement Learning": offline_rl/iclr/2025/adversarial-policy-optimization-for-offline-preference-based-reinforcement-learning.md
+          - 2024:
+              - 年度总览: offline_rl/iclr/2024/index.md
+          - 2023:
+              - 年度总览: offline_rl/iclr/2023/index.md
+          - 2022:
+              - 年度总览: offline_rl/iclr/2022/index.md
+      - ICML:
+          - 总览: offline_rl/icml/index.md
+          - 2026:
+              - 年度总览: offline_rl/icml/2026/index.md
+          - 2025:
+              - 年度总览: offline_rl/icml/2025/index.md
+          - 2024:
+              - 年度总览: offline_rl/icml/2024/index.md
+          - 2023:
+              - 年度总览: offline_rl/icml/2023/index.md
+          - 2022:
+              - 年度总览: offline_rl/icml/2022/index.md
+      - NeurIPS:
+          - 总览: offline_rl/neurips/index.md
+          - 2026:
+              - 年度总览: offline_rl/neurips/2026/index.md
+          - 2025:
+              - 年度总览: offline_rl/neurips/2025/index.md
+          - 2024:
+              - 年度总览: offline_rl/neurips/2024/index.md
+          - 2023:
+              - 年度总览: offline_rl/neurips/2023/index.md
+          - 2022:
+              - 年度总览: offline_rl/neurips/2022/index.md
+      - AAMAS:
+          - 总览: offline_rl/aamas/index.md
+          - 2026:
+              - 年度总览: offline_rl/aamas/2026/index.md
+          - 2025:
+              - 年度总览: offline_rl/aamas/2025/index.md
+          - 2024:
+              - 年度总览: offline_rl/aamas/2024/index.md
+          - 2023:
+              - 年度总览: offline_rl/aamas/2023/index.md
+          - 2022:
+              - 年度总览: offline_rl/aamas/2022/index.md
+      - 其他会议:
+          - 总览: offline_rl/other_conferences/index.md
+          - 2026:
+              - 年度总览: offline_rl/other_conferences/2026/index.md
+          - 2025:
+              - 年度总览: offline_rl/other_conferences/2025/index.md
+          - 2024:
+              - 年度总览: offline_rl/other_conferences/2024/index.md
+          - 2023:
+              - 年度总览: offline_rl/other_conferences/2023/index.md
+          - 2022:
+              - 年度总览: offline_rl/other_conferences/2022/index.md
+      - 期刊文章:
+          - 总览: offline_rl/journals/index.md
+          - 2026:
+              - 年度总览: offline_rl/journals/2026/index.md
+          - 2025:
+              - 年度总览: offline_rl/journals/2025/index.md
+          - 2024:
+              - 年度总览: offline_rl/journals/2024/index.md
+          - 2023:
+              - 年度总览: offline_rl/journals/2023/index.md
+          - 2022:
+              - 年度总览: offline_rl/journals/2022/index.md
+  - 具身智能与 LLM:
+      - 总览: embodied_llm/index.md
+      - 行业最新动态: embodied_llm/industry_updates.md
+      - 相关论文: embodied_llm/related_papers.md
