@@ -28,10 +28,10 @@ hide:
 </section>
 
 <section class="metrics-row">
-<div><strong>1</strong><span>篇已上传 ORL 笔记</span></div>
+<div><strong>43</strong><span>篇已上传 ORL 笔记</span></div>
 <div><strong>6</strong><span>类 ORL 来源</span></div>
 <div><strong>30</strong><span>个年份入口</span></div>
-<div><strong>1</strong><span>个已有内容入口</span></div>
+<div><strong>2</strong><span>个已有内容入口</span></div>
 </section>
 
 <section class="section-head" markdown>
@@ -47,7 +47,7 @@ hide:
 <h2><a href="offline_rl/">离线强化学习</a></h2>
 <p>按 ICLR、ICML、NeurIPS、AAMAS、其他会议和期刊文章组织，并固定 2022-2026 年入口。</p>
 <div class="chip-row">
-<a class="chip" href="offline_rl/iclr/2025/">ICLR 2025 <span>1</span></a>
+<a class="chip" href="offline_rl/iclr/2025/">ICLR 2025 <span>38</span></a>
 <a class="chip" href="offline_rl/">全部 ORL 入口</a>
 </div>
 </article>

@@ -1,0 +1,4319 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="一篇将物理先验、T-symmetry 表征学习和离线 RL 结合起来并真实部署到数据中心冷却控制的工业 ORL 论文。">
+      
+      
+      
+        <link rel="canonical" href="https://cristianhtvc.github.io/offline_rl/iclr/2025/data-center-cooling-system-optimization-using-offline-reinforcement-learning/">
+      
+      
+        <link rel="prev" href="../cross-domain-offline-policy-adaptation-with-optimal-transport-and-dataset-constraint/">
+      
+      
+        <link rel="next" href="../diffusion-actor-critic-formulating-constrained-policy-iteration-as-diffusion-noise-regress/">
+      
+      
+      <link rel="icon" href="../../../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.50">
+    
+    
+      
+        <title>Data Center Cooling System Optimization Using Offline Reinforcement Learning - 坚守离线强化学习阵地的小陈</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.a40c8224.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#data-center-cooling-system-optimization-using-offline-reinforcement-learning" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../../../.." title="坚守离线强化学习阵地的小陈" class="md-header__button md-logo" aria-label="坚守离线强化学习阵地的小陈" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.5 9V1.5h-3V9h-3V1.5h-3V9h-3V1.5H4.65V9H3v1.5h18V9zm0 4.5h-3V21h-3v-7.5h-3V21h-3v-7.5H4.65V21H3v1.5h18V21h-1.5z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            坚守离线强化学习阵地的小陈
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Data Center Cooling System Optimization Using Offline Reinforcement Learning
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="切换到深色模式"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="切换到深色模式" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="切换到浅色模式"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="切换到浅色模式" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../.." class="md-tabs__link">
+        
+  
+    
+  
+  首页
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../tech-stack/" class="md-tabs__link">
+        
+  
+    
+  
+  技术栈
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../" class="md-tabs__link">
+          
+  
+    
+  
+  离线强化学习
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../embodied_llm/" class="md-tabs__link">
+          
+  
+    
+  
+  具身智能与 LLM
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="坚守离线强化学习阵地的小陈" class="md-nav__button md-logo" aria-label="坚守离线强化学习阵地的小陈" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.5 9V1.5h-3V9h-3V1.5h-3V9h-3V1.5H4.65V9H3v1.5h18V9zm0 4.5h-3V21h-3v-7.5h-3V21h-3v-7.5H4.65V21H3v1.5h18V21h-1.5z"/></svg>
+
+    </a>
+    坚守离线强化学习阵地的小陈
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    首页
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../tech-stack/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    技术栈
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    离线强化学习
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            离线强化学习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    ICLR
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            ICLR
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../2026/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            2026
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_3" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_3" id="__nav_3_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../active-offline-reinforcement-learning-via-adaptive-imitation-and-in-sample-v-ensemble/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ACTIVE: Offline Reinforcement Learning via Adaptive Imitation and In-sample V-Ensemble
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adversarial-policy-optimization-for-offline-preference-based-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adversarial Policy Optimization for Offline Preference-based Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../an-optimal-discriminator-weighted-imitation-perspective-for-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    An Optimal Discriminator Weighted Imitation Perspective for Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../any-step-dynamics-model-improves-future-predictions-for-online-and-offline-reinforcement-l/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Any-step Dynamics Model Improves Future Predictions for Online and Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contradiff-planning-towards-high-return-states-via-contrastive-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ContraDiff: Planning Towards High Return States via Contrastive Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../correcting-the-mythos-of-kl-regularization-direct-alignment-without-overoptimization-via-c/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Correcting the Mythos of KL-Regularization Direct Alignment without Overoptimization via Chi-Squared Preference Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cross-domain-offline-policy-adaptation-with-optimal-transport-and-dataset-constraint/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Cross-Domain Offline Policy Adaptation with Optimal Transport and Dataset Constraint
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Data Center Cooling System Optimization Using Offline Reinforcement Learning
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Data Center Cooling System Optimization Using Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 第一作者相关信息
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 研究问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 背景知识
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 问题分析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 思想与方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 算法与伪代码
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 实验与消融
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. 展望
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../diffusion-actor-critic-formulating-constrained-policy-iteration-as-diffusion-noise-regress/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Diffusion Actor-Critic: Formulating Constrained Policy Iteration as Diffusion Noise Regression for Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dof-a-diffusion-factorization-framework-for-offline-multi-agent-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DoF: A Diffusion Factorization Framework for Offline Multi-Agent Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../efficient-online-reinforcement-learning-fine-tuning-need-not-retain-offline-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Efficient Online Reinforcement Learning Fine-Tuning Need Not Retain Offline Data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../energy-weighted-flow-matching-for-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Energy-Weighted Flow Matching for Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fat-to-thin-policy-optimization-offline-rl-with-sparse-policies/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fat-to-Thin Policy Optimization: Offline RL with Sparse Policies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fewer-may-be-better-enhancing-offline-reinforcement-learning-with-reduced-dataset/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fewer May Be Better: Enhancing Offline Reinforcement Learning with Reduced Dataset
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ins-interaction-aware-synthesis-to-enhance-offline-multi-agent-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    INS: Interaction-aware Synthesis to Enhance Offline Multi-agent Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../latent-safety-constrained-policy-approach-for-safe-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../learning-on-one-mode-addressing-multi-modality-in-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Learning on One Mode: Addressing Multi-modality in Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../long-short-decision-transformer-bridging-global-and-local-dependencies-for-generalized-dec/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Long-Short Decision Transformer Bridging Global and Local Dependencies for Generalized Decision-Making
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../m-3pc-test-time-model-predictive-control-using-pretrained-masked-trajectory-model/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    M^3PC: Test-time Model Predictive Control using Pretrained Masked Trajectory Model
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-risk-sensitive-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model Risk-sensitive Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-based-offline-reinforcement-learning-with-lower-expectile-q-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model-based Offline Reinforcement Learning with Lower Expectile Q-Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-based-rl-as-a-minimalist-approach-to-horizon-free-and-second-order-bounds/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model-based RL as a Minimalist Approach to Horizon-Free and Second-Order Bounds
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model-free-offline-reinforcement-learning-with-enhanced-robustness/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Model-Free Offline Reinforcement Learning with Enhanced Robustness
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-level-certified-defense-against-poisoning-attacks-in-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Multi-level Certified Defense Against Poisoning Attacks in Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../neural-stochastic-differential-equations-for-uncertainty-aware-offline-rl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Neural Stochastic Differential Equations for Uncertainty-Aware Offline RL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../offline-rl-in-regular-decision-processes-sample-efficiency-via-language-metrics/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Offline RL in Regular Decision Processes: Sample Efficiency via Language Metrics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../offline-rl-with-smooth-ood-generalization-in-convex-hull-and-its-neighborhood/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Offline RL with Smooth OOD Generalization in Convex Hull and its Neighborhood
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ohio-offline-hierarchical-reinforcement-learning-via-inverse-optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    OHIO: Offline Hierarchical Reinforcement Learning via Inverse Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../online-to-offline-rl-for-agent-alignment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Online-to-Offline RL for Agent Alignment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../preference-elicitation-for-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Preference Elicitation for Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rtdiff-reverse-trajectory-synthesis-via-diffusion-for-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RTDiff: Reverse Trajectory Synthesis via Diffusion for Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scalable-decision-making-in-stochastic-environments-through-learned-temporal-abstraction/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scalable Decision-Making in Stochastic Environments through Learned Temporal Abstraction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaling-offline-model-based-rl-via-jointly-optimized-world-action-model-pretraining/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scaling Offline Model-Based RL via Jointly-Optimized World-Action Model Pretraining
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scrutinize-what-we-ignore-reining-in-task-representation-shift-of-context-based-offline-me/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scrutinize What We Ignore: Reining In Task Representation Shift Of Context-Based Offline Meta Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../semantic-temporal-abstraction-via-vision-language-model-guidance-for-efficient-reinforceme/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Semantic Temporal Abstraction via Vision-Language Model Guidance for Efficient Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tackling-data-corruption-in-offline-reinforcement-learning-via-sequence-modeling/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tackling Data Corruption in Offline Reinforcement Learning via Sequence Modeling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../value-aligned-behavior-cloning-for-offline-reinforcement-learning-via-bi-level-optimizatio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Value-aligned Behavior Cloning for Offline Reinforcement Learning via Bi-level Optimization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../what-makes-a-good-diffusion-planner-for-decision-making/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    What Makes a Good Diffusion Planner for Decision Making?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../2024/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../2023/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_5">
+            <span class="md-nav__icon md-icon"></span>
+            2023
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../2022/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../icml/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    ICML
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            ICML
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../icml/2026/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            2026
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../icml/2025/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3_3" id="__nav_3_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../icml/2025/ad-hoc-teamwork-via-offline-goal-based-decision-transformers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Ad Hoc Teamwork via Offline Goal-Based Decision Transformers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../icml/2025/adaptive-learn-then-test-statistically-valid-and-efficient-hyperparameter-selection/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Adaptive Learn-then-Test: Statistically Valid and Efficient Hyperparameter Selection
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../icml/2025/behavior-agnostic-task-inference-for-robust-offline-in-context-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior-agnostic Task Inference for Robust Offline In-context Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../icml/2025/behavior-regularized-diffusion-policy-optimization-for-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Behavior-Regularized Diffusion Policy Optimization for Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../icml/2025/c2iql-constraint-conditioned-implicit-q-learning-for-safe-offline-reinforcement-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C2IQL: Constraint-Conditioned Implicit Q-learning for Safe Offline Reinforcement Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../icml/2024/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../icml/2023/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            2023
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../icml/2022/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../neurips/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    NeurIPS
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            NeurIPS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../neurips/2026/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            2026
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../neurips/2025/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../neurips/2024/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../neurips/2023/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            2023
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../neurips/2022/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../aamas/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    AAMAS
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            AAMAS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../aamas/2026/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            2026
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../aamas/2025/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../aamas/2024/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../aamas/2023/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_5">
+            <span class="md-nav__icon md-icon"></span>
+            2023
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../aamas/2022/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other_conferences/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    其他会议
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            其他会议
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other_conferences/2026/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_2">
+            <span class="md-nav__icon md-icon"></span>
+            2026
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other_conferences/2025/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_3">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other_conferences/2024/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other_conferences/2023/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_5">
+            <span class="md-nav__icon md-icon"></span>
+            2023
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../other_conferences/2022/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_6_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../journals/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    期刊文章
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7">
+            <span class="md-nav__icon md-icon"></span>
+            期刊文章
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_2" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../journals/2026/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            2026
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_3" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../journals/2025/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_3">
+            <span class="md-nav__icon md-icon"></span>
+            2025
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../journals/2024/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_4">
+            <span class="md-nav__icon md-icon"></span>
+            2024
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../journals/2023/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_5">
+            <span class="md-nav__icon md-icon"></span>
+            2023
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7_6" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../journals/2022/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_7_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_7_6">
+            <span class="md-nav__icon md-icon"></span>
+            2022
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../embodied_llm/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    具身智能与 LLM
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            具身智能与 LLM
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../embodied_llm/industry_updates/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    行业最新动态
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../embodied_llm/related_papers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    相关论文
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 第一作者相关信息
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 研究问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 背景知识
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 问题分析
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 思想与方法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. 算法与伪代码
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. 实验与消融
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. 展望
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#links" class="md-nav__link">
+    <span class="md-ellipsis">
+      Links
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="data-center-cooling-system-optimization-using-offline-reinforcement-learning">Data Center Cooling System Optimization Using Offline Reinforcement Learning</h1>
+<div class="paper-hero">
+<p class="paper-meta">Xianyuan Zhan, Xiangyu Zhu, Peng Cheng, Xiao Hu, Ziteng He, Hanfei Geng, Jichao Leng, Huiwen Zheng, Chenhui Liu, Tianshun Hong, Yan Liang, Yunxin Liu, Feng Zhao · ICLR 2025 · ICLR / 2025</p>
+<div class="tag-row"><span>Offline RL</span><span>Industrial Control</span><span>Data Center Cooling</span><span>Physics-informed RL</span><span>T-symmetry</span></div>
+</div>
+
+<article class="note-body">
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Title</td>
+<td>Data Center Cooling System Optimization Using Offline Reinforcement Learning</td>
+</tr>
+<tr>
+<td>Year</td>
+<td>2025</td>
+</tr>
+<tr>
+<td>Source</td>
+<td>ICLR 2025 Poster；OpenReview 显示 Published: 22 Jan 2025, Last Modified: 14 Feb 2025</td>
+</tr>
+<tr>
+<td>Authors</td>
+<td>Xianyuan Zhan, Xiangyu Zhu, Peng Cheng, Xiao Hu, Ziteng He, Hanfei Geng, Jichao Leng, Huiwen Zheng, Chenhui Liu, Tianshun Hong, Yan Liang, Yunxin Liu, Feng Zhao</td>
+</tr>
+<tr>
+<td>Affiliations</td>
+<td>Institute for AI Industry Research, Tsinghua University；Shanghai Artificial Intelligence Laboratory；Global Data Solutions Co., Ltd.</td>
+</tr>
+<tr>
+<td>Tags</td>
+<td>Offline RL, industrial control, data center cooling, GNN, T-symmetry, real-world deployment</td>
+</tr>
+</tbody>
+</table>
+<p><strong>一句话概括</strong>：本文提出一个物理信息驱动的离线强化学习框架，用 GNN 和时间反演对称性学习可泛化的热动力学潜在表示，再在潜在空间中做样本高效的离线策略优化，并在真实商业数据中心实现 14%-21% 的冷却节能且无安全违规。</p>
+<p><strong>我对这篇论文的定位</strong>：这不是一篇只在 D4RL 上调参的 ORL 论文，而是少见的真实生产系统部署论文。它的核心贡献在于把离线 RL 的分布外泛化问题转化为“学习一个带物理结构的潜在动力学空间”，再用该空间支撑安全、稳健的策略学习。它也延续了 TSRL 的思想：当数据覆盖窄、仿真器不可用时，物理先验可能比更强的数据保守正则更关键。</p>
+<h2 id="1">1. 第一作者相关信息</h2>
+<p><strong>Xianyuan Zhan</strong> 是清华大学智能产业研究院和上海人工智能实验室相关研究者，论文中与 Xiangyu Zhu 标注共同一作。其研究路线长期围绕离线强化学习、数据驱动工业控制、安全/稳健决策展开，尤其关注如何把 ORL 从标准 benchmark 推向真实工业系统。</p>
+<p>从公开论文脉络看，Xianyuan Zhan 的工作有两条线：一条是离线 RL 的算法与理论，例如基于数据几何、分布校正、T-symmetry、扩散模型的离线策略学习；另一条是真实工业控制应用，例如火电燃烧优化、数据中心冷却优化等。本文可以看作这两条线的交汇：用前期关于 T-symmetry regularized offline RL 的思想解决数据中心冷却中的小数据、强安全、无仿真器问题。</p>
+<table>
+<thead>
+<tr>
+<th>Year</th>
+<th>Title</th>
+<th>Venue/Source</th>
+<th>Topic tag</th>
+<th>Relation to this paper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2022</td>
+<td>DeepThermal / offline RL for combustion optimization</td>
+<td>AAAI / industrial RL line</td>
+<td>Industrial Offline RL</td>
+<td>真实工业控制落地的前置路线</td>
+</tr>
+<tr>
+<td>2022</td>
+<td>Model-based Offline Planning with Trajectory Pruning</td>
+<td>IJCAI</td>
+<td>Model-based Offline RL</td>
+<td>关注离线规划和模型误差控制</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>Generalizable Offline RL via Data Geometry / GOFAR</td>
+<td>ICLR</td>
+<td>Generalization in ORL</td>
+<td>处理数据覆盖和泛化问题</td>
+</tr>
+<tr>
+<td>2023</td>
+<td>T-symmetry Regularized Offline RL</td>
+<td>NeurIPS</td>
+<td>Physics-informed ORL</td>
+<td>本文 TTDM 和 T-symmetry 正则的直接思想来源</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>Diffusion-DICE</td>
+<td>NeurIPS / related line</td>
+<td>Generative Offline RL</td>
+<td>与 in-sample / 分布校正路线相关</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Data Center Cooling System Optimization Using Offline RL</td>
+<td>ICLR</td>
+<td>Real-world ORL deployment</td>
+<td>本文，将物理先验 ORL 部署到生产数据中心</td>
+</tr>
+</tbody>
+</table>
+<p><strong>研究方向综合</strong>：第一作者团队的特点是把 ORL 看作“受数据支持、受结构先验约束的真实控制问题”，而不是单纯的 benchmark 优化。这使得本文很重视部署系统、传感器预处理、动作平滑、安全约束和真实测试时长。</p>
+<p><strong>信息来源</strong>：论文首页署名与机构；OpenReview 页面；DBLP 条目。</p>
+<h2 id="2">2. 研究问题</h2>
+<p>本文解决的是<strong>数据中心地板级空气侧冷却系统的离线控制优化</strong>。具体地，数据中心机房内有多台 ACU（Air Cooling Unit），每台 ACU 可调节风扇转速和冷冻水阀门开度。目标是在保证冷通道温度不超过安全阈值、送风/出风温度满足运维要求的情况下，尽可能降低 ACU 冷却能耗。</p>
+<p>这个问题重要有三点：</p>
+<ol>
+<li>数据中心能耗巨大，论文指出典型数据中心约 30%-40% 能源用于冷却系统，降低冷却能耗有明显经济和碳排价值。</li>
+<li>真实数据中心不能做危险在线探索，服务器过热可能导致生产事故，因此在线 RL 很难直接训练。</li>
+<li>高保真热仿真器很难建立，CFD 或多物理场仿真存在系统辨识难、校准成本高、sim-to-real gap 大的问题。</li>
+</ol>
+<p>论文假设的设置是一个连续状态、连续动作、离线数据驱动的 MDP：</p>
+<ul>
+<li>状态 <span class="arithmatex">\(s=\{s_s,s_a,s_e\}\)</span>：传感器温湿度、服务器机架温度、ACU 工作状态、外部不可控变量等。</li>
+<li>动作 <span class="arithmatex">\(a\)</span>：所有 ACU 的风扇转速 <span class="arithmatex">\(f_m\)</span> 和阀门开度 <span class="arithmatex">\(o_m\)</span>。</li>
+<li>数据集 <span class="arithmatex">\(\mathcal{D}\)</span>：来自真实数据中心历史 PID 控制日志，分布窄、数据量相对控制复杂度有限。</li>
+<li>策略：离线训练后部署到真实机房闭环控制，不依赖仿真器。</li>
+</ul>
+<p>安全感知奖励函数是论文的核心建模之一：</p>
+<div class="arithmatex">\[
+r =
+r_0
+- \beta_1 \sum_{m=1}^{M} f_m^3
+- \beta_2 \sum_{n=1}^{N}\log(1+\exp(T_n^c-\rho_T))
+- \beta_3 \sum_{m=1}^{M} o_m
+- \beta_4 \sum_{m=1}^{M}\log(1+\exp(T_m^l-\rho_L)).
+\]</div>
+<p>含义：第一项让奖励为正；风扇功耗按转速三次方惩罚；冷通道温度超过阈值 <span class="arithmatex">\(\rho_T\)</span> 会受到 softplus 惩罚；阀门开度也计入能耗；ACU 送风/出风温度超过阈值 <span class="arithmatex">\(\rho_L\)</span> 也被惩罚。这里的目标不是单纯省电，而是在省电和热安全之间做可部署的折中。</p>
+<h2 id="3">3. 背景知识</h2>
+<p><strong>数据中心空气侧冷却控制</strong>：典型数据中心由冷机和冷却塔提供冷冻水，ACU 将冷空气送入机房冷通道，服务器排出的热空气进入热通道。空气侧控制主要调节 ACU 风扇转速和阀门开度。风扇功耗与转速近似三次方相关，因此稍微降低风扇转速就可能节省大量能耗，但如果降得过多会导致冷通道温度超标。</p>
+<p><strong>离线强化学习</strong>：离线 RL 只使用固定数据集 <span class="arithmatex">\(\mathcal{D}\)</span> 学习策略，不能与环境交互。它适合数据中心，因为历史运行日志可用，在线探索危险。但它有分布偏移问题：新策略可能选择历史 PID 很少执行的动作，价值函数在这些 OOD 区域容易外推错误。</p>
+<p><strong>为什么普通 ORL 不够</strong>：CQL、IQL、TD3+BC 等方法通过保守 Q 值、行为约束或 in-sample 学习减少 OOD 错误。但真实数据中心数据来自保守 PID，动作覆盖很窄；如果只靠行为约束，策略会被锁在原 PID 附近，很难发现更节能的控制方式。</p>
+<p><strong>T-symmetry</strong>：时间反演对称性来自物理系统的基本先验，直觉是物理规律在时间方向反转后仍应保持一致。在本文中，它被用于约束潜在前向动力学 <span class="arithmatex">\(f\)</span> 和潜在反向动力学 <span class="arithmatex">\(g\)</span>：</p>
+<div class="arithmatex">\[
+f(z_s,z_a) \approx -g(z_s + f(z_s,z_a), z_a).
+\]</div>
+<p>也就是说，如果潜在状态在动作 <span class="arithmatex">\(z_a\)</span> 下从 <span class="arithmatex">\(z_s\)</span> 前进了一步，那么从前进后的状态往回看，应当能得到一致的反向变化。这种约束不是直接说温度真的可逆，而是给学到的潜在动力学施加物理结构，使其在小数据和 OOD 区域更平滑、更可泛化。</p>
+<p><strong>GNN 在本文中的作用</strong>：机房不是一个无结构向量系统。传感器之间有空间邻近关系，ACU 对不同传感器有控制影响关系。GNN 把这些依赖显式编码进模型，使热动力学表示不完全依赖数据自己发现结构。</p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>朴素含义</th>
+<th>在本文中的作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACU</td>
+<td>机房空调单元</td>
+<td>被策略控制的执行器</td>
+</tr>
+<tr>
+<td>CAT</td>
+<td>Cold Aisle Temperature</td>
+<td>主要安全约束指标</td>
+</tr>
+<tr>
+<td>ACLF</td>
+<td>ACU 能耗 / 服务器能耗</td>
+<td>评估冷却效率，越低越好</td>
+</tr>
+<tr>
+<td>TTDM</td>
+<td>T-symmetry enforced Thermal Dynamics Model</td>
+<td>学习带物理先验的潜在热动力学</td>
+</tr>
+<tr>
+<td>OOD generalization</td>
+<td>对数据外状态动作的合理外推</td>
+<td>解决历史 PID 数据覆盖窄的问题</td>
+</tr>
+<tr>
+<td>Latent policy learning</td>
+<td>在潜在表示上学 Q 与策略</td>
+<td>提高小样本和部署稳健性</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么这篇文章的动机成立</strong>：数据中心冷却具备“有日志、不能探索、仿真难、安全要求高”的典型 ORL 条件，但也恰好暴露了标准 ORL 的弱点：仅靠数据支持会过度保守，仅靠深度模型会过拟合窄数据。论文的动机是用物理先验弥补数据覆盖不足，这比单纯换一个更强 baseline 更贴近真实问题。</p>
+<h2 id="4">4. 问题分析</h2>
+<p>论文的诊断路径不是从一个理论定理出发，而是从真实系统约束出发：</p>
+<ol>
+<li><strong>传统 PID 的局限</strong>：各 ACU 多为局部控制，缺乏对全局热场和服务器负载变化的协同感知。Figure 3 中 PID 阶段风扇转速和阀门开度有长时间固定或异常剧烈调整，而本文方法动作更动态、更平滑。</li>
+<li><strong>MPC/仿真方法的局限</strong>：高保真热模型很难建立，真实机房布局、服务器负载、冷热通道流动都高度复杂，仿真到真实的迁移不可靠。</li>
+<li><strong>普通离线 RL 的局限</strong>：历史数据来自安全保守的 PID 控制器，数据窄。如果算法强行最大化 Q，容易走出数据支持；如果强行为约束，又很难超过 PID。</li>
+<li><strong>核心变量</strong>：传感器空间依赖、ACU 控制依赖、服务器负载变化、温度安全阈值、动作平滑性和 OOD 表征泛化共同决定策略能否部署。</li>
+</ol>
+<p>支撑分析的关键证据包括：</p>
+<ul>
+<li>Figure 1 展示数据中心地板级冷却系统和不同负载下温度场变化，说明问题具备复杂空间热耦合。</li>
+<li>Figure 2 给出整体框架，显示 TTDM 通过图结构和 T-symmetry 连接表征学习与策略学习。</li>
+<li>Table 1 和 Figure 3-5 展示真实数据中心实验，证明方法不只是离线评估有效。</li>
+<li>Figure 6 在小型真实 testbed 上对比 PID、MPC、CCA、IQL、CQL、FISOR 等，强调本文方法在能耗和安全之间更稳。</li>
+<li>Figure 7 消融 GNN 和 T-symmetry，说明核心结构不是装饰项，确实降低多步预测误差并提升控制性能。</li>
+</ul>
+<p>这一路径排除了两个简单解释：第一，节能不是因为牺牲温度安全，实验中无 CAT 违规；第二，提升不是单纯来自更大网络，因为去掉 GNN 或 T-symmetry 后预测和策略效果都下降。</p>
+<h2 id="5">5. 思想与方法</h2>
+<p>本文的核心思想是：<strong>先学习一个遵守机房物理结构的潜在热动力学模型，再在该潜在空间中做保守但不僵化的离线策略优化</strong>。</p>
+<p>方法包含三个主要组件。</p>
+<p><strong>组件一：安全感知 MDP 和奖励设计</strong><br />
+状态拆成传感器状态、ACU 状态和外部因素；动作是风扇转速与阀门开度；奖励同时惩罚能耗和温度超限风险。这个设计把现场运维经验直接写入优化目标。</p>
+<p><strong>组件二：TTDM 表征学习</strong><br />
+TTDM 使用状态动作编码器 <span class="arithmatex">\(\phi(s,a)\)</span> 得到 <span class="arithmatex">\(z_s,z_a\)</span>，用 GNN 捕捉传感器和 ACU 的空间/控制依赖，并训练重构、前向 ODE、反向 ODE、状态变化解码和 T-symmetry 一致性损失：</p>
+<div class="arithmatex">\[
+\mathcal{L}_{TTDM}
+=
+\sum_{(s,a,s')\in \mathcal{D}}
+(\mathcal{L}_{rec}+\mathcal{L}_{fwd}+\mathcal{L}_{rvs}+\mathcal{L}_{ds}+\mathcal{L}_{T\text{-}sym}).
+\]</div>
+<p>这个组件的因果机制是：图结构减少模型学习热场关系的样本需求，T-symmetry 让潜在动力学在正反时间方向上自洽，从而降低小数据下的任意外推。</p>
+<p><strong>组件三：潜在空间离线策略优化</strong><br />
+Q 函数不是直接在原始状态动作空间学，而是在 <span class="arithmatex">\(Q(z_s,z_a)\)</span> 上学习：</p>
+<div class="arithmatex">\[
+\min_Q\ \mathbb{E}_{(s,a,s')\sim \mathcal{D}}
+\left[
+r(s,a)+\gamma \bar{Q}(\phi(s',\pi(s')))-Q(\phi(s,a))
+\right]^2.
+\]</div>
+<p>策略目标类似 TD3+BC，但加入潜在 Q 最大化、行为动作约束和 T-symmetry 约束：</p>
+<div class="arithmatex">\[
+\max_{\pi}\ \mathbb{E}_{(s,a)\sim \mathcal{D}}
+\left[
+\lambda_\alpha Q(\phi(s,\pi(s)))
+-(\pi(s)-a)^2
+-\mathcal{L}_{T\text{-}sym}(\phi(s,\pi(s)))
+\right].
+\]</div>
+<p>这比普通 TD3+BC 多了一个关键点：策略产生的动作不仅要接近数据，还要在 TTDM 的潜在物理一致性空间内合理。这让策略可以适度离开 PID 行为以省电，同时避免无物理意义的 OOD 动作。</p>
+<p><strong>新颖性判断</strong>：GNN、TD3+BC、T-symmetry 都不是从零发明；真正的新意是把它们组合成一个可部署的物理信息 ORL 系统，并用 2000 小时真实闭环运行证明有效。</p>
+<h2 id="6">6. 算法与伪代码</h2>
+<p>算法名可以概括为 <strong>Physics-informed Offline RL for DC Cooling</strong>，核心模型是 <strong>TTDM + latent-space offline policy optimization</strong>。</p>
+<p><strong>训练流程（对应 Appendix Algorithm 1）</strong>：</p>
+<ol>
+<li>输入预处理后的历史数据集 <span class="arithmatex">\(\mathcal{D}\)</span>，初始化 Q 网络、策略网络 <span class="arithmatex">\(\pi\)</span> 和 TTDM。</li>
+<li>训练 TTDM：</li>
+<li>从 <span class="arithmatex">\(\mathcal{D}\)</span> 中采样小批量 <span class="arithmatex">\((s,a,s',a')\)</span>。</li>
+<li>用编码器 <span class="arithmatex">\(\phi(s,a)\)</span> 得到 <span class="arithmatex">\(z_s,z_a,z_{s'},z_{a'}\)</span>。</li>
+<li>计算重构损失 <span class="arithmatex">\(\mathcal{L}_{rec}\)</span>，确保潜在表示能还原状态和动作。</li>
+<li>计算潜在前向/反向 ODE 损失 <span class="arithmatex">\(\mathcal{L}_{fwd},\mathcal{L}_{rvs}\)</span>。</li>
+<li>计算状态变化解码损失 <span class="arithmatex">\(\mathcal{L}_{ds}\)</span>。</li>
+<li>计算 T-symmetry 一致性损失 <span class="arithmatex">\(\mathcal{L}_{T\text{-}sym}\)</span>。</li>
+<li>最小化总损失 <span class="arithmatex">\(\mathcal{L}_{TTDM}\)</span> 更新 TTDM。</li>
+<li>训练离线策略：</li>
+<li>从 <span class="arithmatex">\(\mathcal{D}\)</span> 中采样 <span class="arithmatex">\((s,a,r,s')\)</span>，其中 <span class="arithmatex">\(r\)</span> 由安全感知奖励函数计算。</li>
+<li>在潜在空间中用 TD 目标更新 <span class="arithmatex">\(Q(\phi(s,a))\)</span>。</li>
+<li>用潜在 Q 最大化、行为约束和 T-symmetry 正则更新策略 <span class="arithmatex">\(\pi\)</span>。</li>
+<li>部署时：</li>
+<li>实时过滤异常传感器数据并重采样到统一时间间隔，商业数据中心为 5 分钟，小型 testbed 为 2 分钟。</li>
+<li>策略输出动作后做时间平滑，执行当前输出和前 4 个时刻输出的平均值。</li>
+<li>将平滑后的风扇转速和阀门开度发送给 ACU。</li>
+</ol>
+<p>重要实现细节：</p>
+<ul>
+<li>TTDM 使用 Adam，学习率 <span class="arithmatex">\(3\times 10^{-4}\)</span>，weight decay <span class="arithmatex">\(10^{-5}\)</span>。</li>
+<li>GNN hidden units 为 256，前向/反向模型 hidden units 为 128。</li>
+<li>折扣因子 <span class="arithmatex">\(\gamma=0.99\)</span>，target update rate 为 0.005。</li>
+<li>策略网络和 critic 网络宽度为 512。</li>
+<li><span class="arithmatex">\(\alpha\)</span> 在 <span class="arithmatex">\([2.5,10]\)</span> 调参，用于平衡价值最大化和行为正则。</li>
+<li>策略噪声 0.2，policy noise clipping 0.5，policy update frequency 2。</li>
+</ul>
+<p>训练和部署之间的关键差距是：训练时只用历史数据；部署时必须处理实时数据质量、动作平滑、现场阈值和人工运维约束。论文把这些系统工程细节写进附录，是它可信度较高的原因之一。</p>
+<h2 id="7">7. 实验与消融</h2>
+<p><strong>真实商业数据中心实验</strong>：</p>
+<ul>
+<li>场景：两个真实服务器房间 A/B，控制 4 台、6 台以及全部 ACU，真实生产环境闭环运行。</li>
+<li>时间：2024 年 1 月到 12 月期间多轮实验，总计超过 2000 小时。</li>
+<li>指标：ACLF，即 ACU 冷却能耗与服务器能耗之比；同时监控 CAT 安全违规。</li>
+<li>主要结果：Table 1 显示相较 PID，本文方法在两个机房实现 14%-21% 的冷却能效提升，并且无热安全或操作约束违规。</li>
+</ul>
+<p><strong>控制质量分析</strong>：</p>
+<ul>
+<li>Figure 3：48 小时对比表明，在相似服务器负载下，本文方法 ACLF 更低；动作更动态，倾向于降低风扇转速、略增阀门开度，从而在保持冷却能力的同时降低风扇功耗。</li>
+<li>Figure 4：14 天长期实验显示，不同服务器负载下本文方法 ACLF 均低于 PID，且负载越高节能优势越明显；冷通道温度仍低于 25 摄氏度阈值。</li>
+<li>Figure 5：控制更多 ACU 时节能效果更强，说明联合控制规模越大，策略优化空间越大。</li>
+</ul>
+<p><strong>小型真实 testbed 对比</strong>：</p>
+<ul>
+<li>环境：22 台服务器和 1 台 ACU，可做更充分探索。</li>
+<li>负载：低、中、高三种服务器负载，平均功率约 4.9kW、7.4kW、8.0kW。</li>
+<li>Baselines：PID、MPC、CCA、IQL、CQL、FISOR。</li>
+<li>Figure 6：CCA 和 CQL 等激进方法可能降低能耗但出现温度安全问题；本文方法在所有负载下有最高能效且无 CAT violation。</li>
+</ul>
+<p><strong>消融实验</strong>：</p>
+<ul>
+<li>Figure 7a/b：加入 GNN 后，多步热状态预测误差显著降低，尤其预测步数变长时更明显。</li>
+<li>Figure 7a/b：加入 T-symmetry 后，TTDM 预测误差进一步下降。</li>
+<li>Figure 7c：离线策略优化中去掉 T-symmetry 会显著削弱低负载和高负载下的节能表现。</li>
+<li>Appendix C.2 / Table 2：奖励函数中温度惩罚权重 <span class="arithmatex">\(\beta_2\)</span> 改变时 ACLF 仍比较稳定，说明奖励设计有一定鲁棒性。</li>
+</ul>
+<p><strong>实验解释边界</strong>：</p>
+<p>这些实验强有力证明了方法可部署、可节能、可安全运行。但它们不能证明方法在所有工业控制场景中通用，也不能单独分离每个系统工程细节的贡献。尤其是动作平滑、传感器过滤、现场阈值调参等部署细节本身也可能对安全性很关键。</p>
+<h2 id="8">8. 展望</h2>
+<p><strong>对 ORL 研究者的启发</strong>：</p>
+<ol>
+<li>真实 ORL 系统的难点往往不只是算法，而是“数据窄、无仿真、安全阈值、部署闭环”共同出现。</li>
+<li>物理先验可以替代一部分数据覆盖，在数据稀缺时比单纯加保守正则更有价值。</li>
+<li>潜在空间策略学习不是为了抽象而抽象，而是为了得到更可泛化的价值估计。</li>
+<li>真实部署指标应同时报告性能和安全违规，单一 return 不足以评价工业控制。</li>
+<li>动作平滑和实时数据预处理应被视为控制算法的一部分，而不是附录工程细节。</li>
+</ol>
+<p><strong>局限与开放问题</strong>：</p>
+<ol>
+<li>安全约束主要通过奖励惩罚和部署监控实现，尚非形式化安全保证。</li>
+<li>T-symmetry 是否适用于所有非平衡热系统或其他工业过程，还需要更系统验证。</li>
+<li>方法依赖领域知识构图，不同数据中心布局迁移时需要重新建图或适配。</li>
+<li>真实商业数据中心的实验不可完全复现，社区难以独立比较。</li>
+<li>只有空气侧 ACU 控制，水侧冷机/冷却塔联合优化仍是更大问题。</li>
+</ol>
+<p><strong>后续研究想法</strong>：</p>
+<ol>
+<li><strong>可证明安全的 physics-informed ORL</strong>：将 TTDM 与 reachability 或 control barrier function 结合，为温度约束提供形式化保证。</li>
+<li><strong>跨数据中心迁移学习</strong>：研究如何把一个机房学到的图结构和潜在热动力学迁移到不同布局、不同 ACU 数量的机房。</li>
+<li><strong>空气侧与水侧联合离线优化</strong>：把 ACU、冷机、冷却塔放入统一多层 MDP，探索端到端冷却系统节能。</li>
+</ol>
+<h2 id="links">Links</h2>
+<ul>
+<li>Paper page: https://openreview.net/forum?id=W8xukd70cU</li>
+<li>DBLP: https://dblp.org/rec/conf/iclr/ZhanZ0HHGLZLHLL25</li>
+<li>arXiv: https://arxiv.org/abs/2501.15085</li>
+<li>Code: 未能从论文和 OpenReview 页面确认官方公开代码链接</li>
+<li>First author / DBLP search: https://dblp.org/search?q=Xianyuan%20Zhan</li>
+</ul>
+</article>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.tabs", "navigation.indexes", "navigation.top", "navigation.tracking", "search.suggest", "search.highlight", "content.code.copy", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.60a45f97.min.js"></script>
+      
+        <script src="../../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

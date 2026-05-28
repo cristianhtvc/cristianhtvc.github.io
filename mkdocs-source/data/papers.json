@@ -2,7 +2,7 @@
   "site": {
     "name": "坚守离线强化学习阵地的小陈",
     "description": "一个专注于离线强化学习领域的博士生，但对于具身智能也很关注哟！",
-    "url": "https://example.com/",
+    "url": "https://cristianhtvc.github.io/",
     "repo_url": "",
     "tagline": "每天读一点 ORL，也顺手望一望具身智能与大模型的新风向。",
     "daily_goal": "目标是每天阅读约 10 篇论文：重点精读 ORL，快速扫读具身智能、LLM 与智能体方向。"
@@ -16,25 +16,608 @@
         "title": "ICLR",
         "description": "表示学习、强化学习、偏好学习与大模型方法交汇较多，是 ORL 新思想的重要来源。",
         "years": [
-          {"year": 2026, "papers": []},
+          {
+            "year": 2026,
+            "papers": []
+          },
           {
             "year": 2025,
             "papers": [
               {
+                "title": "ACTIVE: Offline Reinforcement Learning via Adaptive Imitation and In-sample V-Ensemble",
+                "authors": "Tianyuan Chen, Ronglong Cai, Faguo Wu, Xiao Zhang",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "ACTIVE 用 V 函数集成抑制 in-sample offline RL 的初始价值误差传播，并用自适应克隆温度缓解过度保守。",
+                "tags": [
+                  "Offline RL",
+                  "In-sample Learning",
+                  "Implicit Q-Learning",
+                  "Ensemble",
+                  "Policy Extraction"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] ACTIVE Offline Reinforcement Learning via Adaptive Imitation and In-sample V-Ensemble.md"
+              },
+              {
                 "title": "Adversarial Policy Optimization for Offline Preference-based Reinforcement Learning",
-                "authors": "Jin et al.",
+                "authors": "详见笔记",
                 "venue": "ICLR 2025",
                 "type": "精读",
                 "status": "已整理",
-                "summary": "把 offline preference-based RL 写成策略和奖励/价值模型之间的对抗博弈，用 trajectory-pair L1 deviation 与价值函数重参数化替代显式 confidence set。",
-                "tags": ["Offline PbRL", "Preference Learning", "Pessimism", "Adversarial Optimization"],
+                "summary": "这篇论文把 offline preference-based RL 写成策略和奖励/价值模型之间的对抗博弈，用 trajectory-pair L1 deviation 和价值函数重参数化替代显式 confidence set，从而给出既可实现又有样本复杂度保证的 APPO。",
+                "tags": [
+                  "Offline RL"
+                ],
                 "source_markdown": "data/notes/orl/iclr/2025/adversarial-policy-optimization-for-offline-preference-based-reinforcement-learning.md"
+              },
+              {
+                "title": "An Optimal Discriminator Weighted Imitation Perspective for Reinforcement Learning",
+                "authors": "Haoran Xu, Shuozhe Li, Harshit Sikchi, Scott Niekum, Amy Zhang",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "IDRL 将离线 RL 中的 Dual-RL 分布比学习解释为最优判别器加权模仿，并通过状态-动作访问分布修正与迭代数据过滤逼近专家分布。",
+                "tags": [
+                  "Offline RL",
+                  "Dual RL",
+                  "Imitation Learning",
+                  "Distribution Ratio",
+                  "Weighted BC"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] An Optimal Discriminator Weighted Imitation Perspective for Reinforcement Learning.md"
+              },
+              {
+                "title": "Any-step Dynamics Model Improves Future Predictions for Online and Offline Reinforcement Learning",
+                "authors": "Haoxin Lin, Yu-Yan Xu, Yihao Sun, Zhilong Zhang, Yi-Chen Li, Chengxing Jia, Junyin Ye, Jiaji Zhang, Yang Yu",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "ADM 用任意步回溯的直接预测降低模型 rollout 的误差累积，并在离线 MBRL 中用单模型差异估计不确定性。",
+                "tags": [
+                  "Offline RL",
+                  "Model-Based RL",
+                  "Dynamics Model",
+                  "Uncertainty",
+                  "D4RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Any-step Dynamics Model Improves Future Predictions for Online and Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "ContraDiff: Planning Towards High Return States via Contrastive Learning",
+                "authors": "Yixiang Shan, Zhengbang Zhu, Ting Long, Qifan Liang, Yi Chang, Weinan Zhang, Liang Yin",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "ContraDiff 在扩散轨迹规划中引入按回报定义的对比约束，让低回报轨迹作为负样本参与训练，帮助策略远离低回报状态。",
+                "tags": [
+                  "Offline RL",
+                  "Diffusion Planning",
+                  "Contrastive Learning",
+                  "Dataset Imbalance",
+                  "Trajectory Generation"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] ContraDiff Planning Towards High Return States via Contrastive Learning.md"
+              },
+              {
+                "title": "Correcting the Mythos of KL-Regularization Direct Alignment without Overoptimization via Chi-Squared Preference Optimization",
+                "authors": "详见笔记",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "> **论文标题**: Correcting the Mythos of KL-Regularization: Direct Alignment without Overoptimization via Chi-Squared Preference Optimization",
+                "tags": [
+                  "Offline RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Correcting the Mythos of KL-Regularization Direct Alignment without Overoptimization via Chi-Squared Preference Optimization.md"
+              },
+              {
+                "title": "Cross-Domain Offline Policy Adaptation with Optimal Transport and Dataset Constraint",
+                "authors": "Jiafei Lyu, Mengbei Yan, Zhongjian Qiao, Runze Liu, Xiaoteng Ma, Deheng Ye, Jingwen Yang, Zongqing Lu, Xiu Li",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "OTDF 用最优传输筛选源域转移，并用目标域数据集约束防止策略偏向错误动力学。",
+                "tags": [
+                  "Offline RL",
+                  "Domain Adaptation",
+                  "Optimal Transport",
+                  "Dynamics Shift",
+                  "Dataset Constraint"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Cross-Domain Offline Policy Adaptation with Optimal Transport and Dataset Constraint.md"
+              },
+              {
+                "title": "Data Center Cooling System Optimization Using Offline Reinforcement Learning",
+                "authors": "Xianyuan Zhan, Xiangyu Zhu, Peng Cheng, Xiao Hu, Ziteng He, Hanfei Geng, Jichao Leng, Huiwen Zheng, Chenhui Liu, Tianshun Hong, Yan Liang, Yunxin Liu, Feng Zhao",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "一篇将物理先验、T-symmetry 表征学习和离线 RL 结合起来并真实部署到数据中心冷却控制的工业 ORL 论文。",
+                "tags": [
+                  "Offline RL",
+                  "Industrial Control",
+                  "Data Center Cooling",
+                  "Physics-informed RL",
+                  "T-symmetry"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Data Center Cooling System Optimization Using Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Diffusion Actor-Critic: Formulating Constrained Policy Iteration as Diffusion Noise Regression for Offline Reinforcement Learning",
+                "authors": "Linjiajie Fang, Ruoxue Liu, Jing Zhang, Wenjia Wang, Bing-Yi Jing",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "DAC 将 KL 约束策略迭代转化为扩散噪声回归，用 soft Q-guidance 训练扩散目标策略并避免 OOD 动作。",
+                "tags": [
+                  "Offline RL",
+                  "Diffusion Policy",
+                  "Actor-Critic",
+                  "Policy Regularization",
+                  "Q-Ensemble"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Diffusion Actor-Critic Formulating Constrained Policy Iteration as Diffusion Noise Regression for Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "DoF: A Diffusion Factorization Framework for Offline Multi-Agent Reinforcement Learning",
+                "authors": "Chao Li, Ziwei Deng, Chenxing Lin, Wenqi Chen, Yongquan Fu, Weiquan Liu, Chenglu Wen, Cheng Wang, Siqi Shen",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "DoF 将 MARL 的 IGM 原则推广为 IGD 分布一致性原则，用噪声和数据因子化把集中式扩散模型拆成可去中心化执行的小模型。",
+                "tags": [
+                  "Offline MARL",
+                  "Diffusion Models",
+                  "Value Factorization",
+                  "CTDE",
+                  "Multi-Agent RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] DoF A Diffusion Factorization Framework for Offline Multi-Agent Reinforcement Learning.md"
+              },
+              {
+                "title": "Efficient Online Reinforcement Learning Fine-Tuning Need Not Retain Offline Data",
+                "authors": "Zhiyuan Zhou, Andy Peng, Qiyang Li, Sergey Levine, Aviral Kumar",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "一篇系统研究 offline-to-online RL 中无离线数据保留微调问题，并提出 Warm-start RL 的论文。",
+                "tags": [
+                  "Offline-to-Online RL",
+                  "Fine-tuning",
+                  "No-retention RL",
+                  "Catastrophic Forgetting",
+                  "Warm-start RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Efficient Online Reinforcement Learning Fine-Tuning Need Not Retain Offline Data.md"
+              },
+              {
+                "title": "Energy-Weighted Flow Matching for Offline Reinforcement Learning",
+                "authors": "Shiyuan Zhang, Weitong Zhang, Quanquan Gu",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "一篇将精确能量引导引入 flow matching 和 diffusion，并用于 Q 加权离线策略优化的论文。",
+                "tags": [
+                  "Offline RL",
+                  "Flow Matching",
+                  "Diffusion Models",
+                  "Energy Guidance",
+                  "QIPO"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Energy-Weighted Flow Matching for Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Fat-to-Thin Policy Optimization: Offline RL with Sparse Policies",
+                "authors": "Lingwei Zhu, Han Wang, Yukie Nagai",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "一篇研究连续稀疏策略在离线 RL 中支撑不匹配问题，并提出 Fat-to-Thin 两阶段优化框架的论文。",
+                "tags": [
+                  "Offline RL",
+                  "Sparse Policies",
+                  "q-Gaussian",
+                  "Safety-critical RL",
+                  "Policy Optimization"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Fat-to-Thin Policy Optimization Offline Reinforcement Learning with Sparse Policies.md"
+              },
+              {
+                "title": "Fewer May Be Better: Enhancing Offline Reinforcement Learning with Reduced Dataset",
+                "authors": "Yiqin Yang, Quanwei Wang, Chenghao Li, Hao Hu, Chengjie Wu, Yuhua Jiang, Dianyu Zhong, Ziyou Zhang, Qianchuan Zhao, Chongjie Zhang, Bo Xu",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "ReDOR 将离线 RL 数据子集选择建模为梯度近似与弱次模优化，用更少数据提升训练效率和策略表现。",
+                "tags": [
+                  "Offline RL",
+                  "Dataset Selection",
+                  "Coreset",
+                  "Submodular Optimization",
+                  "D4RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Fewer May Be Better Enhancing Offline Reinforcement Learning with Reduced Dataset.md"
+              },
+              {
+                "title": "INS: Interaction-aware Synthesis to Enhance Offline Multi-agent Reinforcement Learning",
+                "authors": "详见笔记",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "title: \"INS: Interaction-aware Synthesis to Enhance Offline Multi-agent Reinforcement Learning\"",
+                "tags": [
+                  "Offline RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] INS Interaction-aware Synthesis to Enhance Offline Multi-agent Reinforcement Learning.md"
+              },
+              {
+                "title": "Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning",
+                "authors": "详见笔记",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "> **论文标题**: Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning",
+                "tags": [
+                  "Offline RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Learning on One Mode: Addressing Multi-modality in Offline Reinforcement Learning",
+                "authors": "详见笔记",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "> **深度阅读笔记** | ICLR 2025 Accepted Paper",
+                "tags": [
+                  "Offline RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Learning on One Mode Addressing Multi-modality in Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Long-Short Decision Transformer Bridging Global and Local Dependencies for Generalized Decision-Making",
+                "authors": "详见笔记",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "> **论文标题**: Long-Short Decision Transformer: Bridging Global and Local Dependencies for Generalized Decision-Making",
+                "tags": [
+                  "Offline RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Long-Short Decision Transformer Bridging Global and Local Dependencies for Generalized Decision-Making.md"
+              },
+              {
+                "title": "M^3PC: Test-time Model Predictive Control using Pretrained Masked Trajectory Model",
+                "authors": "Kehan Wen, Yutong Hu, Yao Mu, Lei Ke",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "用同一个预训练掩码轨迹模型在测试时完成动作提案、未来预测、回报评估与目标到达规划，从而把 BTM 从单步行为克隆器变成可规划的决策模型。",
+                "tags": [
+                  "Offline RL",
+                  "Offline-to-Online RL",
+                  "Model Predictive Control",
+                  "Masked Trajectory Model",
+                  "Robot Learning"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] M^3PC Test-time Model Predictive Control using Pretrained Masked Trajectory Model.md"
+              },
+              {
+                "title": "Model Risk-sensitive Offline Reinforcement Learning",
+                "authors": "Gwangpyo Yoo, Honguk Woo",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "将金融中的模型风险引入风险敏感离线强化学习，用最坏可置信回报分布的风险替代单一估计风险，并用 critic ensemble 与 Fourier-IQN 实现。",
+                "tags": [
+                  "Offline RL",
+                  "Risk-sensitive RL",
+                  "Distributional RL",
+                  "Model Risk",
+                  "Spectral Risk Measures"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Model Risk-sensitive Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Model-based Offline Reinforcement Learning with Lower Expectile Q-Learning",
+                "authors": "Kwanyoung Park, Youngwoon Lee",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "LEQ 用 lower expectile regression 学习模型 rollout 的保守 λ-return，从而让 model-based offline RL 能在 AntMaze 等长时域任务上摆脱不可靠不确定性惩罚。",
+                "tags": [
+                  "Offline RL",
+                  "Model-based RL",
+                  "Expectile Regression",
+                  "Lambda Return",
+                  "AntMaze"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Model-based Offline Reinforcement Learning with Lower Expectile Q-Learning.md"
+              },
+              {
+                "title": "Model-based RL as a Minimalist Approach to Horizon-Free and Second-Order Bounds",
+                "authors": "Zhiyong Wang, Dongruo Zhou, John C. S. Lui, Wen Sun",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "证明最标准的 MLE 学模型加乐观/悲观规划，已经足以在在线和离线 RL 中得到近似 horizon-free 与 second-order 的理论界。",
+                "tags": [
+                  "Model-based RL",
+                  "RL Theory",
+                  "Offline RL",
+                  "Horizon-free Bounds",
+                  "Second-order Bounds"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Model-based RL as a Minimalist Approach to Horizon-Free and Second-Order Bounds.md"
+              },
+              {
+                "title": "Model-Free Offline Reinforcement Learning with Enhanced Robustness",
+                "authors": "Chi Zhang, Zain Ulabedeen Farhat, George K. Atia, Yue Wang",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "提出 double-pessimism 原则，用 model-free Q-learning 同时处理离线数据不足和部署环境模型偏差。",
+                "tags": [
+                  "Offline RL",
+                  "Robust RL",
+                  "Model-Free RL",
+                  "Pessimism",
+                  "Sample Complexity"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Model-Free Offline Reinforcement Learning with Enhanced Robustness.md"
+              },
+              {
+                "title": "Multi-level Certified Defense Against Poisoning Attacks in Offline Reinforcement Learning",
+                "authors": "Shijie Liu, Andrew C. Cullen, Paul Montague, Sarah Erfani, Benjamin I. P. Rubinstein",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "用差分隐私的 outcomes guarantee 为离线 RL 数据投毒提供动作级与策略级双层认证防御。",
+                "tags": [
+                  "Offline RL",
+                  "Certified Defense",
+                  "Data Poisoning",
+                  "Differential Privacy",
+                  "Safety"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Multi-level Certified Defense Against Poisoning Attacks in Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Neural Stochastic Differential Equations for Uncertainty-Aware Offline RL",
+                "authors": "Cevahir Koprulu, Franck Djeumou, Ufuk Topcu",
+                "venue": "ICLR 2025",
+                "type": "精读",
+                "status": "已整理",
+                "summary": "提出 NUNO，用 Neural SDE 的漂移项注入物理先验、扩散项估计距离感知不确定性，以缓解 model-based offline RL 的 model exploitation。",
+                "tags": [
+                  "Offline RL",
+                  "Model-Based RL",
+                  "Neural SDE",
+                  "Uncertainty Estimation",
+                  "Conservative Policy Learning"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Neural Stochastic Differential Equations for Uncertainty-Aware Offline RL.md"
+              },
+              {
+                "title": "Offline RL in Regular Decision Processes: Sample Efficiency via Language Metrics",
+                "authors": "Ahana Deb, Roberto Cipollone, Anders Jonsson, Alessandro Ronca, Mohammad Sadegh Talebi",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "用形式语言度量和 Count-Min-Sketch 改进 RDP 离线强化学习的样本效率与空间复杂度。",
+                "tags": [
+                  "Offline RL",
+                  "Regular Decision Processes",
+                  "Non-Markovian RL",
+                  "Automata Learning",
+                  "Sample Complexity"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Offline RL in Regular Decision Processes Sample Efficiency via Language Metrics.md"
+              },
+              {
+                "title": "Offline RL with Smooth OOD Generalization in Convex Hull and its Neighborhood",
+                "authors": "Qingmao Yao, Zhichao Lei, Tianyuan Chen, Ziyue Yuan, Xuefan Chen, Jianxiang Liu, Faguo Wu, Xiao Zhang",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "用 CHN 安全区域和 Smooth Bellman Operator 缓解离线 RL 中对 OOD 动作的过度保守。",
+                "tags": [
+                  "Offline RL",
+                  "OOD Generalization",
+                  "Q Function",
+                  "Smooth Bellman Operator"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Offline RL with Smooth OOD Generalization in Convex Hull and its Neighborhood.md"
+              },
+              {
+                "title": "OHIO: Offline Hierarchical Reinforcement Learning via Inverse Optimization",
+                "authors": "Carolin Schmidt, Daniele Gammelli, James Harrison, Marco Pavone, Filipe Rodrigues",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "提出 OHIO，用低层控制器结构反推出不可观测高层动作，把普通离线轨迹转化为可训练层级策略的数据集。",
+                "tags": [
+                  "Offline RL",
+                  "Hierarchical RL",
+                  "Inverse Optimization",
+                  "Robotics",
+                  "Network Optimization"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Offline Hierarchical Reinforcement Learning via Inverse Optimization.md"
+              },
+              {
+                "title": "Online-to-Offline RL for Agent Alignment",
+                "authors": "Xu Liu, Haobo Fu, Stefano V. Albrecht, Qiang Fu, Shuai Li",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "将已在线训练好的游戏智能体用少量离线人类行为数据对齐到目标偏好。",
+                "tags": [
+                  "Agent Alignment",
+                  "Preference Learning",
+                  "Online-to-Offline RL",
+                  "Game AI"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Online-to-Offline RL for Agent Alignment.md"
+              },
+              {
+                "title": "Preference Elicitation for Offline Reinforcement Learning",
+                "authors": "Alizée Pace, Bernhard Schölkopf, Gunnar Rätsch, Giorgia Ramponi",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "在完全离线设定下主动选择偏好查询轨迹，用 Sim-OPRL 结合悲观模型学习与乐观偏好采样。",
+                "tags": [
+                  "Offline RL",
+                  "Preference Learning",
+                  "Active Learning",
+                  "Model-based RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Preference Elicitation for Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "RTDiff: Reverse Trajectory Synthesis via Diffusion for Offline Reinforcement Learning",
+                "authors": "Qianlan Yang, Yu-Xiong Wang",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "RTDiff 通过反向合成轨迹进行离线数据增强，降低 forward synthesis 从已知区域走向 OOD 区域带来的过估计风险。",
+                "tags": [
+                  "Offline RL",
+                  "Diffusion Models",
+                  "Data Augmentation",
+                  "Trajectory Synthesis",
+                  "Distribution Shift"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] RTDiff Reverse Trajectory Synthesis via Diffusion for Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "Scalable Decision-Making in Stochastic Environments through Learned Temporal Abstraction",
+                "authors": "Baiting Luo, Ava Pettet, Aron Laszka, Abhishek Dubey, Ayan Mukhopadhyay",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "L-MAP 通过 VQ-VAE 学习宏动作 latent，再用 MCTS 在离散隐空间中高效处理随机连续控制规划。",
+                "tags": [
+                  "Offline RL",
+                  "Model-Based Planning",
+                  "Temporal Abstraction",
+                  "MCTS",
+                  "VQ-VAE"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Scalable Decision-Making in Stochastic Environments through Learned Temporal Abstraction.md"
+              },
+              {
+                "title": "Scaling Offline Model-Based RL via Jointly-Optimized World-Action Model Pretraining",
+                "authors": "Jie Cheng, Ruixi Qiao, Yingwei Ma, Binhua Li, Gang Xiong, Qinghai Miao, Yongbin Li, Yisheng Lv",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "JOWA 用共享 Transformer 同时预训练世界模型和动作价值模型，探索 Atari 多任务 offline model-based RL 的 scaling。",
+                "tags": [
+                  "Offline RL",
+                  "Model-Based RL",
+                  "World Model",
+                  "Atari",
+                  "Scaling"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Scaling Offline Model-Based RL via Jointly-Optimized World-Action Model Pretraining.md"
+              },
+              {
+                "title": "Scrutinize What We Ignore: Reining In Task Representation Shift Of Context-Based Offline Meta Reinforcement Learning",
+                "authors": "Hai Zhang, Boyuan Zheng, Tianying Ji, Jinhang Liu, Anqi Guo, Junqiao Zhao, Lanqing Li",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "这篇 ICLR 2025 论文为 COMRL 交替优化建立性能改进解释，并指出任务表示漂移会破坏单调改进。",
+                "tags": [
+                  "Offline Meta RL",
+                  "Context-Based Meta RL",
+                  "Task Representation Shift",
+                  "Theory",
+                  "Mutual Information"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Scrutinize What We Ignore Reining In Task Representation Shift Of Context-Based Offline Meta Reinforcement Learning.md"
+              },
+              {
+                "title": "Semantic Temporal Abstraction via Vision-Language Model Guidance for Efficient Reinforcement Learning",
+                "authors": "Tian-Shuo Liu, Xu-Hui Liu, Ruifeng Chen, Lixuan Jin, Pengyuan Wang, Zhilong Zhang, Yang Yu",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "VanTA 用 VLM 知识引导 VQ-VAE 技能发现，让离线层级 RL 的时序抽象更有语义且更高效。",
+                "tags": [
+                  "Offline RL",
+                  "Temporal Abstraction",
+                  "Vision-Language Models",
+                  "Hierarchical RL",
+                  "Skill Discovery"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Semantic Temporal Abstraction via Vision-Language Model Guidance for Efficient Reinforcement Learning.md"
+              },
+              {
+                "title": "Tackling Data Corruption in Offline Reinforcement Learning via Sequence Modeling",
+                "authors": "Jiawei Xu, Rui Yang, Shuang Qiu, Feng Luo, Meng Fang, Baoxiang Wang, Lei Han",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "RDT 说明序列建模式 offline RL 在数据损坏下天然更稳，并用三种轻量技术增强 Decision Transformer。",
+                "tags": [
+                  "Offline RL",
+                  "Robust RL",
+                  "Decision Transformer",
+                  "Data Corruption",
+                  "Sequence Modeling"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Tackling Data Corruption in Offline Reinforcement Learning via Sequence Modeling.md"
+              },
+              {
+                "title": "Value-aligned Behavior Cloning for Offline Reinforcement Learning via Bi-level Optimization",
+                "authors": "Xingyu Jiang, Ning Gao, Xiuhui Zhang, Hongkun Dou, Yue Deng",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "VACO 用双层优化学习样本权重，让行为克隆在保持数据支持的同时对齐预训练价值函数。",
+                "tags": [
+                  "Offline RL",
+                  "Behavior Cloning",
+                  "Bi-level Optimization",
+                  "Value Alignment",
+                  "D4RL"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Value-aligned Behavior Cloning for Offline Reinforcement Learning via Bi-level Optimization.md"
+              },
+              {
+                "title": "What Makes a Good Diffusion Planner for Decision Making?",
+                "authors": "Haofei Lu, Dongqi Han, Yifei Shen, Dongsheng Li",
+                "venue": "ICLR 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "一项系统拆解扩散规划器关键设计的 ICLR 2025 Spotlight 经验研究，并给出强基线 Diffusion Veteran。",
+                "tags": [
+                  "Offline RL",
+                  "Diffusion Planning",
+                  "Decision Making",
+                  "Empirical Study",
+                  "Diffusion Veteran"
+                ],
+                "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] What Makes a Good Diffusion Planner for Decision Making.md"
               }
             ]
           },
-          {"year": 2024, "papers": []},
-          {"year": 2023, "papers": []},
-          {"year": 2022, "papers": []}
+          {
+            "year": 2024,
+            "papers": []
+          },
+          {
+            "year": 2023,
+            "papers": []
+          },
+          {
+            "year": 2022,
+            "papers": []
+          }
         ]
       },
       {
@@ -42,11 +625,102 @@
         "title": "ICML",
         "description": "方法论、理论分析和 benchmark 论文密集，适合追踪 ORL 主流技术路线。",
         "years": [
-          {"year": 2026, "papers": []},
-          {"year": 2025, "papers": []},
-          {"year": 2024, "papers": []},
-          {"year": 2023, "papers": []},
-          {"year": 2022, "papers": []}
+          {
+            "year": 2026,
+            "papers": []
+          },
+          {
+            "year": 2025,
+            "papers": [
+              {
+                "title": "Ad Hoc Teamwork via Offline Goal-Based Decision Transformers",
+                "authors": "Xinzhi Zhang, Hohei Chan, Deheng Ye, Yi Cai, Mengchen Zhao",
+                "venue": "ICML 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "TAGET 将 ad hoc teamwork 推到离线多智能体设定，用队友感知的 RTG 与子目标预测增强 Decision Transformer。",
+                "tags": [
+                  "Offline RL",
+                  "Multi-Agent RL",
+                  "Ad Hoc Teamwork",
+                  "Decision Transformer"
+                ],
+                "source_markdown": "data/notes/orl/icml/2025/[ICML_2025] Ad Hoc Teamwork via Offline Goal-Based Decision Transformers.md"
+              },
+              {
+                "title": "Adaptive Learn-then-Test: Statistically Valid and Efficient Hyperparameter Selection",
+                "authors": "Matteo Zecchin, Sangwoo Park, Osvaldo Simeone",
+                "venue": "ICML 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "aLTT 用 e-process 做自适应多重假设检验，在保持有限样本风险保证的同时减少昂贵测试轮数。",
+                "tags": [
+                  "Offline RL",
+                  "Hyperparameter Selection",
+                  "Statistical Guarantees",
+                  "Multiple Testing"
+                ],
+                "source_markdown": "data/notes/orl/icml/2025/[ICML_2025] Adaptive Learn-then-Test Statistically Valid and Efficient Hyperparameter Selection.md"
+              },
+              {
+                "title": "Behavior-agnostic Task Inference for Robust Offline In-context Reinforcement Learning",
+                "authors": "Long Ma, Fangwei Zhong, Yizhou Wang",
+                "venue": "ICML 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "BATI 用动力学似然替代上下文编码器的近似贝叶斯推断，缓解 offline ICRL 中由行为策略变化造成的上下文分布偏移。",
+                "tags": [
+                  "Offline RL",
+                  "In-context RL",
+                  "Meta-RL",
+                  "Robust Task Inference"
+                ],
+                "source_markdown": "data/notes/orl/icml/2025/[ICML_2025] Behavior-agnostic Task Inference for Robust Offline In-context Reinforcement Learning.md"
+              },
+              {
+                "title": "Behavior-Regularized Diffusion Policy Optimization for Offline Reinforcement Learning",
+                "authors": "Chen-Xiao Gao, Chenyang Wu, Mingjun Cao, Chenjun Xiao, Yang Yu, Zongzhang Zhang",
+                "venue": "ICML 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "BDPO 将行为正则化写到扩散反向路径上，用可解析 pathwise KL 和双时间尺度 actor-critic 优化离线扩散策略。",
+                "tags": [
+                  "Offline RL",
+                  "Diffusion Policy",
+                  "Behavior Regularization",
+                  "Actor-Critic"
+                ],
+                "source_markdown": "data/notes/orl/icml/2025/[ICML_2025] Behavior-Regularized Diffusion Policy Optimization for Offline Reinforcement Learning.md"
+              },
+              {
+                "title": "C2IQL: Constraint-Conditioned Implicit Q-learning for Safe Offline Reinforcement Learning",
+                "authors": "Zifan Liu, Xinran Li, Jun Zhang",
+                "venue": "ICML 2025",
+                "type": "速读",
+                "status": "已整理",
+                "summary": "C2IQL 将 IQL 扩展到安全离线 RL，用隐式约束更新、成本重构和阈值条件化同时追求奖励与安全。",
+                "tags": [
+                  "Safe Offline RL",
+                  "Implicit Q-learning",
+                  "Constrained RL",
+                  "Cost Reconstruction"
+                ],
+                "source_markdown": "data/notes/orl/icml/2025/[ICML_2025] C2IQL Constraint-Conditioned Implicit Q-learning for Safe Offline Reinforcement Learning.md"
+              }
+            ]
+          },
+          {
+            "year": 2024,
+            "papers": []
+          },
+          {
+            "year": 2023,
+            "papers": []
+          },
+          {
+            "year": 2022,
+            "papers": []
+          }
         ]
       },
       {
@@ -54,11 +728,26 @@
         "title": "NeurIPS",
         "description": "覆盖 RL 理论、生成模型、偏好学习与基础模型，是跨方向连接的重要入口。",
         "years": [
-          {"year": 2026, "papers": []},
-          {"year": 2025, "papers": []},
-          {"year": 2024, "papers": []},
-          {"year": 2023, "papers": []},
-          {"year": 2022, "papers": []}
+          {
+            "year": 2026,
+            "papers": []
+          },
+          {
+            "year": 2025,
+            "papers": []
+          },
+          {
+            "year": 2024,
+            "papers": []
+          },
+          {
+            "year": 2023,
+            "papers": []
+          },
+          {
+            "year": 2022,
+            "papers": []
+          }
         ]
       },
       {
@@ -66,11 +755,26 @@
         "title": "AAMAS",
         "description": "多智能体、决策系统与交互学习相关工作，适合补足 ORL 在 agent 场景中的外延。",
         "years": [
-          {"year": 2026, "papers": []},
-          {"year": 2025, "papers": []},
-          {"year": 2024, "papers": []},
-          {"year": 2023, "papers": []},
-          {"year": 2022, "papers": []}
+          {
+            "year": 2026,
+            "papers": []
+          },
+          {
+            "year": 2025,
+            "papers": []
+          },
+          {
+            "year": 2024,
+            "papers": []
+          },
+          {
+            "year": 2023,
+            "papers": []
+          },
+          {
+            "year": 2022,
+            "papers": []
+          }
         ]
       },
       {
@@ -78,11 +782,26 @@
         "title": "其他会议",
         "description": "收纳 COLT、UAI、AAAI、IJCAI、CoRL、RSS 等会议中的相关 ORL 论文。",
         "years": [
-          {"year": 2026, "papers": []},
-          {"year": 2025, "papers": []},
-          {"year": 2024, "papers": []},
-          {"year": 2023, "papers": []},
-          {"year": 2022, "papers": []}
+          {
+            "year": 2026,
+            "papers": []
+          },
+          {
+            "year": 2025,
+            "papers": []
+          },
+          {
+            "year": 2024,
+            "papers": []
+          },
+          {
+            "year": 2023,
+            "papers": []
+          },
+          {
+            "year": 2022,
+            "papers": []
+          }
         ]
       },
       {
@@ -90,11 +809,26 @@
         "title": "期刊文章",
         "description": "收纳 JMLR、TMLR、TPAMI、AIJ 等期刊中的 ORL 长文、综述和扩展版本。",
         "years": [
-          {"year": 2026, "papers": []},
-          {"year": 2025, "papers": []},
-          {"year": 2024, "papers": []},
-          {"year": 2023, "papers": []},
-          {"year": 2022, "papers": []}
+          {
+            "year": 2026,
+            "papers": []
+          },
+          {
+            "year": 2025,
+            "papers": []
+          },
+          {
+            "year": 2024,
+            "papers": []
+          },
+          {
+            "year": 2023,
+            "papers": []
+          },
+          {
+            "year": 2022,
+            "papers": []
+          }
         ]
       }
     ]

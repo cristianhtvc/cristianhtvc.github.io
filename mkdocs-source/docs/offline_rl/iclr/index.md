@@ -16,7 +16,7 @@ description: "ICLR 离线强化学习论文笔记"
 <article class="area-card">
 <p class="eyebrow">ICLR</p>
 <h2><a href="2025/">2025</a></h2>
-<p>1 篇已整理笔记。</p>
+<p>38 篇已整理笔记。</p>
 </article>
 <article class="area-card">
 <p class="eyebrow">ICLR</p>

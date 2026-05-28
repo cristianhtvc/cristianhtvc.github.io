@@ -350,11 +350,24 @@ def render_tags(tags: list[str]) -> str:
     return "".join(f"<span>{tag}</span>" for tag in tags)
 
 
+def strip_frontmatter(markdown: str) -> str:
+    lines = markdown.splitlines()
+    if lines and lines[0].strip() == "---":
+        for index, line in enumerate(lines[1:], start=1):
+            if line.strip() == "---":
+                return "\n".join(lines[index + 1 :]).lstrip()
+    return markdown
+
+
 def strip_first_h1(markdown: str) -> str:
     lines = markdown.splitlines()
     if lines and lines[0].startswith("# "):
         return "\n".join(lines[1:]).lstrip()
     return markdown
+
+
+def normalize_note_body(markdown: str) -> str:
+    return strip_first_h1(strip_frontmatter(markdown))
 
 
 def render_paper_page(venue: dict, year: int, paper: dict) -> str:
@@ -363,7 +376,7 @@ def render_paper_page(venue: dict, year: int, paper: dict) -> str:
     source = paper.get("source_markdown")
     if source:
         source_path = ROOT / source
-        body = strip_first_h1(source_path.read_text(encoding="utf-8"))
+        body = normalize_note_body(source_path.read_text(encoding="utf-8"))
     else:
         body = paper.get("summary", "")
 

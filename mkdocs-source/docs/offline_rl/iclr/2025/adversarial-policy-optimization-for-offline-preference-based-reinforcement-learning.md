@@ -1,18 +1,15 @@
 ---
 title: "Adversarial Policy Optimization for Offline Preference-based Reinforcement Learning"
-description: "把 offline preference-based RL 写成策略和奖励/价值模型之间的对抗博弈，用 trajectory-pair L1 deviation 与价值函数重参数化替代显式 confidence set。"
+description: "这篇论文把 offline preference-based RL 写成策略和奖励/价值模型之间的对抗博弈，用 trajectory-pair L1 deviation 和价值函数重参数化替代显式 confidence set，从而给出既可实现又有样本复杂度保证的 APPO。"
 tags:
-  - Offline PbRL
-  - Preference Learning
-  - Pessimism
-  - Adversarial Optimization
+  - Offline RL
 ---
 
 # Adversarial Policy Optimization for Offline Preference-based Reinforcement Learning
 
 <div class="paper-hero">
-<p class="paper-meta">Jin et al. · ICLR 2025 · ICLR / 2025</p>
-<div class="tag-row"><span>Offline PbRL</span><span>Preference Learning</span><span>Pessimism</span><span>Adversarial Optimization</span></div>
+<p class="paper-meta">详见笔记 · ICLR 2025 · ICLR / 2025</p>
+<div class="tag-row"><span>Offline RL</span></div>
 </div>
 
 <article class="note-body" markdown>
