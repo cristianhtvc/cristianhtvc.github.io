@@ -17,6 +17,8 @@ description: "个人论文笔记站的建站技术栈与维护流程"
 | 内容格式 | Markdown + YAML front matter | 单篇论文笔记可直接编辑、审阅和版本管理 |
 | 数据源 | `data/papers.json` | 统一维护板块、会议、年份和论文元数据 |
 | 原始笔记 | `data/notes/` | 保存长文笔记原稿，由脚本挂载到网页中 |
+| 内容审查 | `scripts/content_review.py` | 检查 ORL 笔记 front matter、八段结构和论文/代码链接 |
+| 上传后台 | `scripts/upload_server.py` | 提供本地网页上传入口，审查通过后自动写入、构建并发布 |
 | 页面生成 | `scripts/generate_site.py` | 从 JSON 自动生成首页、导航、索引页和论文页 |
 | 样式扩展 | `docs/stylesheets/extra.css` | 定义个人站点配色、卡片和论文页面细节 |
 
@@ -27,3 +29,19 @@ description: "个人论文笔记站的建站技术栈与维护流程"
 3. 运行 `python scripts/generate_site.py` 更新 Markdown 和导航。
 4. 运行 `mkdocs serve` 本地预览，确认公式、标题和目录正常。
 5. 运行 `mkdocs build` 生成 `site/` 静态目录并部署。
+
+## 一键上传系统
+
+本仓库现在保留原有手动维护方式，同时提供本地上传后台：
+
+```powershell
+cd C:\Users\chenwy\Documents\GitHub\cristianhtvc.github.io\mkdocs-source
+.\scripts\start_uploader.bat
+```
+
+启动脚本会自动寻找 Python，并在缺少 MkDocs 时安装 `requirements.txt`。如果需要直接运行 PowerShell 脚本，请使用 `powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start_uploader.ps1`，避免 Windows 把 `.ps1` 当作普通文件打开。打开 `http://127.0.0.1:8765/` 后，点击上传按钮选择 `.md` 文件。后台会先执行内容审查；通过后自动推断会议和年份、保存到 `data/notes/orl/`、更新 `data/papers.json`、重新构建 MkDocs，并把构建结果发布回仓库根目录。若要让普通构建也强制审查所有已登记笔记，可设置：
+
+```powershell
+$env:ORL_STRICT_CONTENT_REVIEW = "1"
+python scripts\generate_site.py
+```

@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="> **论文标题**: Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning">
+        <meta name="description" content="LSPC 先用 CVAE 从离线数据中学习一个保守安全策略与 latent safety constraint，再用 reward-Advantage Weighted Regression 在受限隐空间中寻找高回报动作，从而缓解 safe offline RL 中“过度保守低奖励”和“放松约束高风险”的矛盾。">
       
       
       
@@ -1047,18 +1047,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      0. 一句话总结
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-positioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 定位 (Positioning)
+      1. 第一作者相关信息
     </span>
   </a>
   
@@ -1067,7 +1058,7 @@
         <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 第一作者简介
+      2. 研究问题
     </span>
   </a>
   
@@ -1076,102 +1067,18 @@
         <li class="md-nav__item">
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 核心问题
+      3. 背景知识
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. 核心问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      问题陈述
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#constrained-mdp-cmdp" class="md-nav__link">
-    <span class="md-ellipsis">
-      问题的数学形式：Constrained MDP (CMDP)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      现有方法的局限
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      论据来源
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 前置知识
+      4. 问题分析
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4. 前置知识">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41-cvae" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 条件变分自编码器 (CVAE)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-advantage-weighted-regression-awr" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 Advantage Weighted Regression (AWR)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43-implicit-q-learning-iql" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3 Implicit Q-Learning (IQL)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44-latent-space-constraints" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 隐空间约束 (Latent Space Constraints)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1186,27 +1093,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 核心思想
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2 方法细节
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.3 为什么能解耦安全与奖励？
+      理论分析与保证
     </span>
   </a>
   
@@ -1228,36 +1117,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#latent-safety-prioritized-constraints-lspc" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      算法名称: Latent Safety-Prioritized Constraints (LSPC)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      训练流程:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      关键超参数:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#-" class="md-nav__link">
-    <span class="md-ellipsis">
-      理论-实践差距:
+      逐步解释
     </span>
   </a>
   
@@ -1275,57 +1137,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="7. 实验与消融">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.1 实验设置
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72-table-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.2 主要结果 (Table 1)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#73-figure-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.3 训练过程分析 (Figure 2)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#74-figure-3-5" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.4 可视化分析 (Figure 3-5)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#75-figure-12-metadrive-transfer" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.5 迁移实验 (Figure 12, Metadrive Transfer)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -1335,45 +1146,12 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="8. 展望">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      研究启发
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      局限性
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      后续研究方向
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#links" class="md-nav__link">
     <span class="md-ellipsis">
-      链接
+      Links
     </span>
   </a>
   
@@ -4083,18 +3861,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#0" class="md-nav__link">
+  <a href="#1" class="md-nav__link">
     <span class="md-ellipsis">
-      0. 一句话总结
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#1-positioning" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. 定位 (Positioning)
+      1. 第一作者相关信息
     </span>
   </a>
   
@@ -4103,7 +3872,7 @@
         <li class="md-nav__item">
   <a href="#2" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 第一作者简介
+      2. 研究问题
     </span>
   </a>
   
@@ -4112,102 +3881,18 @@
         <li class="md-nav__item">
   <a href="#3" class="md-nav__link">
     <span class="md-ellipsis">
-      3. 核心问题
+      3. 背景知识
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="3. 核心问题">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      问题陈述
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#constrained-mdp-cmdp" class="md-nav__link">
-    <span class="md-ellipsis">
-      问题的数学形式：Constrained MDP (CMDP)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    <span class="md-ellipsis">
-      现有方法的局限
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    <span class="md-ellipsis">
-      论据来源
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#4" class="md-nav__link">
     <span class="md-ellipsis">
-      4. 前置知识
+      4. 问题分析
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="4. 前置知识">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#41-cvae" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 条件变分自编码器 (CVAE)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#42-advantage-weighted-regression-awr" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 Advantage Weighted Regression (AWR)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#43-implicit-q-learning-iql" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3 Implicit Q-Learning (IQL)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#44-latent-space-constraints" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 隐空间约束 (Latent Space Constraints)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -4222,27 +3907,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#51" class="md-nav__link">
+  <a href="#_1" class="md-nav__link">
     <span class="md-ellipsis">
-      5.1 核心思想
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#52" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2 方法细节
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#53" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.3 为什么能解耦安全与奖励？
+      理论分析与保证
     </span>
   </a>
   
@@ -4264,36 +3931,9 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#latent-safety-prioritized-constraints-lspc" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     <span class="md-ellipsis">
-      算法名称: Latent Safety-Prioritized Constraints (LSPC)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    <span class="md-ellipsis">
-      训练流程:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    <span class="md-ellipsis">
-      关键超参数:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#-" class="md-nav__link">
-    <span class="md-ellipsis">
-      理论-实践差距:
+      逐步解释
     </span>
   </a>
   
@@ -4311,57 +3951,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="7. 实验与消融">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#71" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.1 实验设置
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#72-table-1" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.2 主要结果 (Table 1)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#73-figure-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.3 训练过程分析 (Figure 2)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#74-figure-3-5" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.4 可视化分析 (Figure 3-5)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#75-figure-12-metadrive-transfer" class="md-nav__link">
-    <span class="md-ellipsis">
-      7.5 迁移实验 (Figure 12, Metadrive Transfer)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -4371,45 +3960,12 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="8. 展望">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    <span class="md-ellipsis">
-      研究启发
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    <span class="md-ellipsis">
-      局限性
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    <span class="md-ellipsis">
-      后续研究方向
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
+  <a href="#links" class="md-nav__link">
     <span class="md-ellipsis">
-      链接
+      Links
     </span>
   </a>
   
@@ -4432,373 +3988,504 @@
 
 <h1 id="latent-safety-constrained-policy-approach-for-safe-offline-reinforcement-learning">Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning</h1>
 <div class="paper-hero">
-<p class="paper-meta">详见笔记 · ICLR 2025 · ICLR / 2025</p>
-<div class="tag-row"><span>Offline RL</span></div>
+<p class="paper-meta">Prajwal Koirala, Zhanhong Jiang, Soumik Sarkar, Cody Fleming · ICLR 2025 Poster · ICLR / 2025</p>
+<div class="tag-row"><span>Safe Offline RL</span><span>Latent Safety Constraints</span><span>CVAE</span><span>Advantage Weighted Regression</span><span>Constrained MDP</span></div>
 </div>
 
 <article class="note-body">
-<p>﻿# Latent Safety-Constrained Policy Approach (LSPC) 深度阅读笔记</p>
-<blockquote>
-<p><strong>论文标题</strong>: Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning
-<strong>会议</strong>: ICLR 2025 (已接受)
-<strong>作者</strong>: Prajwal Koirala, Zhanhong Jiang, Soumik Sarkar, Cody Fleming
-<strong>机构</strong>: Iowa State University, Ames, Iowa, USA
-<strong>资源</strong>: <a href="https://openreview.net/forum?id=bDt5qc7TfO">OpenReview</a> · <a href="https://arxiv.org/abs/2412.08794">arXiv:2412.08794</a> · <a href="https://github.com/prajwalkoirala/LSPC">Code</a>
-<strong>阅读日期</strong>: 2026-05-27</p>
-</blockquote>
-<hr />
-<h2 id="0">0. 一句话总结</h2>
-<p>LSPC 利用<strong>条件变分自编码器（CVAE）</strong>在隐空间（latent space）中建模安全约束，推导出"保守安全策略"后，将 safe offline RL 形式化为<strong>约束奖励回报最大化问题</strong>，通过 reward-Advantage Weighted Regression 在隐约束空间中优化，在保持安全合规的同时最大化奖励，并提供了性能界和样本复杂度理论保证。</p>
-<hr />
-<h2 id="1-positioning">1. 定位 (Positioning)</h2>
-<p>本文属于 <strong>Safe Offline Reinforcement Learning（安全离线强化学习）</strong> 领域，位于 offline RL 与 safe RL 的交汇点。</p>
-<p><strong>在安全离线 RL 版图中的位置</strong>:
-- <strong>BC-Safe</strong>：仅在数据集的"安全子集"上做行为克隆——没有奖励信号引导优化，保守但不追求最优
-- <strong>CDT</strong> (Conditioned Decision Transformer)：以目标和约束成本为条件做序列建模——提示条件（prompt）选择困难，安全与奖励难以同时满足
-- <strong>CPQ</strong> (Conservative Policy Q-learning)：在 Q 学习中对成本函数施加保守估计——偏保守
-- <strong>FISOR</strong> (Feasibility Informed Safe Offline RL)：通过可行性引导实现硬约束满足——过度保守，奖励性能受限
-- <strong>VOCE</strong>：变分优化+保守估计——偏向价值约束</p>
-<p><strong>LSPC 的差异化</strong>：
-1. <strong>隐空间安全建模</strong>：通过 CVAE 将安全约束编码到 latent space 中，形成"隐式安全优先约束"（Latent Safety-Prioritized Constraints）
-2. <strong>解耦安全与奖励</strong>：先用 CVAE+Cost-AWR 推导保守安全策略 π_s，再在隐约束空间中做 reward maximization
-3. <strong>理论+实践桥梁</strong>：提供了 performance bound 和 sample complexity 分析，并在多种 benchmark 上验证（含自动驾驶 Metadrive）</p>
-<hr />
-<h2 id="2">2. 第一作者简介</h2>
-<p><strong>Prajwal Koirala</strong>，Iowa State University 博士生，导师 Cody Fleming（机械工程/AI系统安全方向）。</p>
-<p>研究聚焦于离线强化学习、安全RL、自动驾驶。近5年代表论文：</p>
+<p><strong>一句话概括：</strong> LSPC 先用 CVAE 从离线数据中学习一个保守安全策略与 latent safety constraint，再用 reward-Advantage Weighted Regression 在受限隐空间中寻找高回报动作，从而缓解 safe offline RL 中“过度保守低奖励”和“放松约束高风险”的矛盾。</p>
+<p><strong>论文的定位：</strong> 这是一篇 safe offline RL 论文，位于 offline RL 的 distribution shift 控制、safe RL 的 CMDP 约束建模、以及生成模型式行为支持建模的交叉处。它与 BC-Safe 的区别是不用只克隆安全子集，而是通过 cost advantage 加权学习安全 latent；与 CDT 的区别是不用依赖难调的 reward/cost prompt；与 FISOR/CPQ 的区别是把安全约束转移到 CVAE latent space 中，以可调 restriction hyperparameter 控制安全-奖励权衡。论文的主张是：先学一个保守的“安全动作生成空间”，再在这个空间里优化奖励，比直接在原动作空间做 constrained policy learning 更稳。</p>
+<h2 id="1">1. 第一作者相关信息</h2>
+<p>第一作者 <strong>Prajwal Koirala</strong>。论文首页给出的单位是 <strong>Iowa State University, Ames, Iowa, USA</strong>，作者邮箱为 <code>{prajwal, zhjiang, soumiks, flemingc}@iastate.edu</code>。公开页面和论文记录显示，Prajwal Koirala 的研究围绕 offline RL、safe RL、自动驾驶/机器人控制和序贯决策中的安全约束学习展开；与 Cody Fleming、Soumik Sarkar 等 Iowa State University 研究者合作紧密。</p>
+<p>近期可核验论文脉络如下。由于作者名在 Google Scholar / Semantic Scholar / OpenReview 等平台的覆盖可能不完全，下表以公开检索到的同名作者论文和本文相关方向为主，不能视为完整 publication list。</p>
 <table>
 <thead>
 <tr>
 <th>年份</th>
 <th>论文</th>
-<th>会议/期刊</th>
+<th>Venue/source</th>
+<th>topic tag</th>
+<th>与本文关系</th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td>2024</td>
+<td>Solving Offline Reinforcement Learning with Decision Tree Regression</td>
+<td>CoRL 2024 / public paper pages</td>
+<td>offline RL, regression formulation</td>
+<td>体现第一作者对“把 offline RL 转成监督/回归问题”的兴趣</td>
+</tr>
+<tr>
+<td>2024</td>
+<td>F1Tenth Autonomous Racing with Offline Reinforcement Learning Methods</td>
+<td>ITSC 2024 / public paper pages</td>
+<td>autonomous driving, offline RL</td>
+<td>与安全控制和自动驾驶场景相关</td>
+</tr>
+<tr>
 <td>2025</td>
-<td><strong>LSPC: Latent Safety-Constrained Policy for Safe Offline RL</strong></td>
-<td>ICLR 2025</td>
+<td>Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning</td>
+<td>ICLR 2025 Poster / OpenReview / arXiv</td>
+<td>safe offline RL, latent constraints</td>
+<td>当前论文</td>
+</tr>
+<tr>
+<td>2025</td>
+<td>Feasibility Informed Advantage Weighted Regression</td>
+<td>CDC 2025 / public records</td>
+<td>safe RL, feasibility, AWR</td>
+<td>与本文同样使用 AWR 思路处理安全/可行性</td>
 </tr>
 <tr>
 <td>2025</td>
 <td>LexiSafe: Offline Safe RL with Lexicographic Safety-Reward Hierarchy</td>
-<td>CoRR</td>
-</tr>
-<tr>
-<td>2025</td>
-<td>Feasibility Informed Advantage Weighted Regression (FAWAC)</td>
-<td>CDC 2025</td>
-</tr>
-<tr>
-<td>2024</td>
-<td>Solving Offline RL with Decision Tree Regression</td>
-<td>CoRL 2024</td>
-</tr>
-<tr>
-<td>2024</td>
-<td>F1Tenth Autonomous Racing with Offline RL Methods</td>
-<td>ITSC 2024</td>
-</tr>
-<tr>
-<td>2024</td>
-<td>Reframing Offline RL as a Regression Problem</td>
-<td>CoRR</td>
-</tr>
-<tr>
-<td>2025</td>
-<td>Flow-Based Single-Step Completion for Efficient Policy Learning</td>
-<td>CoRR</td>
+<td>CoRR / arXiv</td>
+<td>safe offline RL, lexicographic safety</td>
+<td>可视为本文“安全优先、奖励其次”思想的后续或相邻方向</td>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>来源: DBLP (pid: 367/3704)。Koirala 是活跃的 junior researcher，已有 ICLR/CoRL/CDC/ITSC 等多个顶级会议论文，研究方向围绕 offline RL 与 safe RL 交叉。合作网络以 ISU 团队为核心。</p>
-</blockquote>
-<hr />
-<h2 id="3">3. 核心问题</h2>
-<h3 id="_1">问题陈述</h3>
-<p>在<strong>安全离线强化学习</strong>中，目标是从静态数据集中学习一个策略，该策略<strong>最大化累积奖励</strong>同时<strong>严格满足安全约束</strong>（成本不超过阈值 κ）。现有方法面临"安全-奖励"的平衡难题：要么过度保守导致低奖励，要么奖励优化导致安全违规。</p>
-<h3 id="constrained-mdp-cmdp">问题的数学形式：Constrained MDP (CMDP)</h3>
-<div class="arithmatex">\[\max_{\pi} \mathbb{E}\left[\sum_{t=0}^T \gamma^t r(s_t, a_t)\right] \quad \text{s.t.} \quad \mathbb{E}\left[\sum_{t=0}^T \gamma^t c(s_t, a_t)\right] \leq \kappa\]</div>
-<p>其中 <span class="arithmatex">\(c(s_t, a_t)\)</span> 是每步的安全成本，<span class="arithmatex">\(\kappa\)</span> 是成本阈值。离线的额外挑战在于：数据分布偏移导致价值函数（奖励 Q 和成本 Q）估计不准。</p>
-<h3 id="_2">现有方法的局限</h3>
+<p>总体上，第一作者的研究主线可以概括为：<strong>在离线数据中学习可部署策略，同时把安全、可行性或约束满足显式纳入策略提取过程</strong>。本文的 LSPC 属于这条线中较核心的一篇：它把安全约束从显式 cost threshold 优化转成 latent-space restriction，使策略既不完全停留在安全子集行为克隆，也不直接暴露在 OOD 动作风险里。</p>
+<h2 id="2">2. 研究问题</h2>
+<p>本文研究的是 <strong>safe offline reinforcement learning</strong>。普通 offline RL 只从静态数据集学习策略，不能与环境继续交互；safe RL 则要求策略在最大化奖励的同时满足安全成本约束。两者合起来之后，问题变得更尖锐：算法既不能在线试错，也不能为了追求高 reward 去访问数据覆盖不足或不安全的动作区域。</p>
+<p>论文使用 CMDP 形式描述 safe RL。给定状态空间、动作空间、转移、奖励函数和成本函数，目标是：</p>
+<div class="arithmatex">\[
+\max_{\pi}\ \mathbb{E}_{\tau\sim\pi}[R(\tau)]
+\quad
+\text{s.t.}
+\quad
+\mathbb{E}_{\tau\sim\pi}[C(\tau)] \le \kappa .
+\]</div>
+<p>其中 <span class="arithmatex">\(R(\tau)\)</span> 是轨迹累计奖励，<span class="arithmatex">\(C(\tau)\)</span> 是轨迹累计成本，<span class="arithmatex">\(\kappa\)</span> 是允许的安全成本阈值。</p>
+<p>在 offline setting 中，论文进一步把问题写成：</p>
+<div class="arithmatex">\[
+\max_{\pi} V_r^\pi(s)
+\quad
+\text{s.t.}
+\quad
+V_c^\pi(s) \le \kappa,\quad
+D_{\mathrm{KL}}(\pi\|\pi_b)\le \epsilon_1 .
+\]</div>
+<p>这里 <span class="arithmatex">\(\pi_b\)</span> 是离线数据背后的未知行为策略。第二个 KL 约束表达的是 offline RL 的典型需求：目标策略不要离数据支持太远，否则 Q 函数会在 OOD 动作上外推出错。</p>
+<p>本文要解决的核心矛盾是：</p>
+<ul>
+<li>如果约束太强，策略会像 BC-Safe 或 FISOR 那样很安全但奖励低。</li>
+<li>如果约束太弱，策略可能像部分 CDT/CPQ 设置那样追求高奖励却违反成本约束。</li>
+<li>如果只过滤安全数据再行为克隆，换一个成本阈值 <span class="arithmatex">\(\kappa\)</span> 可能就需要重新筛数据和训练。</li>
+<li>如果直接在原动作空间做 constrained optimization，安全约束和行为支持约束都难以稳定实现。</li>
+</ul>
+<p>LSPC 的问题定义可以压缩成一句话：<strong>如何仅凭包含 reward/cost 标签的离线数据，学习一个既在安全约束内、又能尽量提高奖励的策略？</strong></p>
+<h2 id="3">3. 背景知识</h2>
 <table>
 <thead>
 <tr>
-<th>方法</th>
+<th>term</th>
+<th>plain Chinese meaning</th>
+<th>role in this paper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Safe RL</td>
+<td>强化学习不仅最大化奖励，还要满足安全成本限制</td>
+<td>本文目标领域</td>
+</tr>
+<tr>
+<td>Offline RL</td>
+<td>只能使用预先收集的数据，训练时不能继续交互</td>
+<td>引入 distribution shift 和 OOD 动作风险</td>
+</tr>
+<tr>
+<td>CMDP</td>
+<td>带成本约束的 MDP</td>
+<td>用于形式化 reward maximization + cost constraint</td>
+</tr>
+<tr>
+<td>Cost return</td>
+<td>轨迹上的累计安全违规成本</td>
+<td>判断策略是否安全</td>
+</tr>
+<tr>
+<td>Behavior policy <span class="arithmatex">\(\pi_b\)</span></td>
+<td>产生离线数据的未知策略</td>
+<td>策略不能偏离其数据支持太远</td>
+</tr>
+<tr>
+<td>CVAE</td>
+<td>条件变分自编码器</td>
+<td>建模状态-动作分布并生成数据支持内动作</td>
+</tr>
+<tr>
+<td>Latent safety constraint</td>
+<td>隐空间中的安全约束区域</td>
+<td>LSPC 的核心抽象</td>
+</tr>
+<tr>
+<td>LSPC-S</td>
+<td>conservative safe policy</td>
+<td>保守安全策略，可作安全备份</td>
+</tr>
+<tr>
+<td>LSPC-O</td>
+<td>reward-optimized policy in latent safety space</td>
+<td>在受限安全隐空间内优化奖励</td>
+</tr>
+<tr>
+<td>IQL</td>
+<td>Implicit Q-Learning</td>
+<td>训练 reward/cost critic</td>
+</tr>
+<tr>
+<td>AWR</td>
+<td>Advantage Weighted Regression</td>
+<td>从 critic 中提取安全/高奖励策略</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么 safe offline RL 难？</strong><br />
+Online safe RL 可以通过在线交互逐步发现哪些动作危险，但这本身有安全风险。Offline RL 避免了在线试错，却只能依赖静态数据。如果策略选择数据集中很少见的动作，critic 对 reward 和 cost 的估计都可能不可靠。因此 safe offline RL 要同时处理两个约束：动作要在数据支持内，且要满足安全成本。</p>
+<p><strong>CVAE 在这里做什么？</strong><br />
+CVAE 学习一个条件生成模型：给定状态 <span class="arithmatex">\(s\)</span> 和隐变量 <span class="arithmatex">\(z\)</span>，decoder 生成动作 <span class="arithmatex">\(a\)</span>。如果 <span class="arithmatex">\(z\)</span> 来自训练时见过的高概率区域，decoder 更可能生成离线数据支持内的动作。LSPC 进一步把这个 latent space 用作安全约束空间：先通过 cost-aware AWR 让 CVAE 更偏向重构低成本动作，再限制采样的 <span class="arithmatex">\(z\)</span> 区域，让生成动作更保守安全。</p>
+<p><strong>IQL/AWR 在这里做什么？</strong><br />
+IQL 用离线数据训练 reward Q、cost Q 和 value 网络，避免在训练 critic 时查询 OOD 动作。AWR 用 advantage 作为权重做监督学习：优势越好的样本，权重越大。本文分别使用 cost advantage 学 LSPC-S，使用 reward advantage 学 LSPC-O 的 latent encoder。</p>
+<p><strong>为什么本文动机成立？</strong><br />
+如果直接学一个高奖励策略，可能违反安全约束；如果只学安全动作，可能丢掉高奖励机会。LSPC 的思路是先构造一个“安全且在数据支持内”的动作生成空间，再在这个空间中找高奖励动作。这样安全和奖励被部分解耦：CVAE/latent restriction 负责安全与支持，reward-AWR 负责性能优化。</p>
+<h2 id="4">4. 问题分析</h2>
+<p>论文的分析围绕 safe offline RL 的三重困难展开。</p>
+<p>第一，<strong>离线数据带来 OOD 外推问题</strong>。论文在 Introduction 和 Section 2 中强调，目标策略如果偏离行为策略 <span class="arithmatex">\(\pi_b\)</span>，reward/cost critic 都会在数据未覆盖区域出错。因此 Eq. 2 中加入 <span class="arithmatex">\(D_{\mathrm{KL}}(\pi\|\pi_b)\le \epsilon_1\)</span> 这样的行为正则化思想。</p>
+<p>第二，<strong>安全约束不能只靠硬过滤</strong>。BC-Safe 只在安全子集上克隆，这在安全上直观，但丢掉了带高奖励信息的非安全或边界样本；如果成本阈值变化，还可能需要重新过滤数据。论文希望不要求大量纯安全数据，而是只要求数据中存在非空安全子集，这一点在 Appendix A.2 的 Assumption 6 中被用于样本复杂度分析。</p>
+<p>第三，<strong>奖励优化与安全约束需要可调解耦</strong>。Figure 1 给出 LSPC 的框架：CVAE encoder/decoder 负责学习 latent safety space，另一个 encoder <span class="arithmatex">\(\mu_\delta(z|s)\)</span> 在这个 latent space 内寻找高 reward action。Figure 4 进一步显示 restriction hyperparameter 控制安全-奖励权衡：放宽 latent restriction 会提升 LSPC-O 的 reward，但也会提高 cost；因此 <span class="arithmatex">\(\epsilon\)</span> 不是装饰性超参，而是安全部署时必须关注的旋钮。</p>
+<p>根据 Figure 1，LSPC 的核心数据流可以重画为：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>flowchart LR
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  D[&quot;Offline dataset D: (s,a,r,c,s&#39;)&quot;] --&gt; Critics[&quot;Reward / Cost critics via IQL&quot;]
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>  D --&gt; CVAE[&quot;Cost-aware CVAE\nencoder q_alpha(z|s,a)\ndecoder p_beta(a|s,z)&quot;]
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>  Critics --&gt; SafeAWR[&quot;Cost-AWR\nlearn conservative safe policy&quot;]
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>  SafeAWR --&gt; CVAE
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>  CVAE --&gt; LSPCS[&quot;LSPC-S:\nsample restricted z\nproduce safe action&quot;]
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  Critics --&gt; RewardAWR[&quot;Reward-AWR in latent space\nlearn encoder mu_delta(z|s)&quot;]
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>  CVAE --&gt; RewardAWR
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  RewardAWR --&gt; LSPCO[&quot;LSPC-O:\nreward-optimized action\ninside latent safety space&quot;]
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  LSPCS --&gt; Deploy[&quot;Safe deployment option&quot;]
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>  LSPCO --&gt; Deploy
+</code></pre></div>
+<p>这张图对应论文 Figure 1(a)/(b)：安全约束不再直接写成原动作空间中的硬约束，而是通过 CVAE 的 latent representation 与受限采样区域来施加。</p>
+<h2 id="5">5. 思想与方法</h2>
+<p>LSPC 的核心思想是：<strong>用 CVAE 学一个安全优先的隐空间，再在这个隐空间里做奖励最大化</strong>。</p>
+<p>方法分两步。</p>
+<p>第一步是 <strong>Learning Conservatively Safe Policy</strong>。论文用 CVAE 建模行为策略，并通过 cost advantage weighting 让 CVAE 更倾向于重构低成本动作。CVAE 的标准目标来自 ELBO：</p>
+<div class="arithmatex">\[
+\log \pi_b(a|s)
+\ge
+\mathbb{E}_{z\sim q_\alpha(z|s,a)}[\log p_\beta(a|s,z)]
+-
+D_{\mathrm{KL}}(q_\alpha(z|s,a)\|p(z|s,a)).
+\]</div>
+<p>在 LSPC 中，这个目标被 cost-aware AWR 权重修正。直觉是：如果某个动作的 cost advantage 更好，即预计更安全，那么它在 CVAE 重构目标中的权重更大。这样训练出的 decoder <span class="arithmatex">\(p_\beta(a|s,z)\)</span> 更倾向于生成安全且位于数据支持内的动作。</p>
+<p>第二步是 <strong>Constrained Reward-Return Maximization</strong>。在已学好的安全 decoder 上，训练一个 latent safety encoder policy <span class="arithmatex">\(\mu_\delta(z|s)\)</span>，用 reward advantage weighting 找到更高回报的 latent embedding。decoder 参数 <span class="arithmatex">\(\beta\)</span> 冻结，但梯度可以穿过 decoder 回传到 <span class="arithmatex">\(\delta\)</span>。最终 LSPC-O 的动作来自：</p>
+<div class="arithmatex">\[
+z \sim \mu_\delta(\cdot|s),\quad
+z \in (-\epsilon,\epsilon),\quad
+a \sim p_\beta(\cdot|s,z).
+\]</div>
+<p>其中 <span class="arithmatex">\(\epsilon\)</span> 控制 latent space restriction：小 <span class="arithmatex">\(\epsilon\)</span> 更保守，大 <span class="arithmatex">\(\epsilon\)</span> 给 reward optimization 更多空间，但可能提高 cost。</p>
+<h3 id="_1">理论分析与保证</h3>
+<p>论文的理论集中在 Section 4 和 Appendix A.2。它没有证明深度神经网络实现的全局最优训练，但给出了分布距离假设下的 performance gap、constraint violation 和样本复杂度界。</p>
+<table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Assumptions</th>
+<th>Conclusion</th>
+<th>Intuition</th>
+<th>Limitation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lemma 1</td>
+<td>stationary distributions for <span class="arithmatex">\(\pi\)</span> and <span class="arithmatex">\(\pi^\star\)</span></td>
+<td>state distribution TV distance 可由 policy TV distance 控制</td>
+<td>策略差异会沿 MDP 传播成状态分布差异</td>
+<td>依赖折扣因子，误差随 <span class="arithmatex">\((1-\gamma)^{-1}\)</span> 放大</td>
+</tr>
+<tr>
+<td>Theorem 1</td>
+<td><span class="arithmatex">\(D_{\mathrm{KL}}(\pi\|\pi_s)\le\epsilon_1'\)</span> and <span class="arithmatex">\(D_{\mathrm{KL}}(\pi_s\|\pi^\star)\le\epsilon_2'\)</span></td>
+<td>reward performance gap 被 <span class="arithmatex">\(\sqrt{\epsilon_1'/2}+\sqrt{\epsilon_2'/2}\)</span> 控制</td>
+<td>如果 LSPC-O 接近安全策略，安全策略又接近最优策略，则性能差距小</td>
+<td>是 worst-case bound，不直接说明实际优化能达到这些 KL</td>
+</tr>
+<tr>
+<td>Theorem 2</td>
+<td>同 Theorem 1</td>
+<td>constraint violation 被类似形式控制</td>
+<td>reward 和 cost critic 都基于 IQL/AWR，误差传播结构相似</td>
+<td>仍是分布距离假设下的上界</td>
+</tr>
+<tr>
+<td>Theorem 3</td>
+<td>Donsker class assumption + safe subset nonempty</td>
+<td>performance gap decays as <span class="arithmatex">\(O(1/N^{0.25+\xi})\)</span></td>
+<td>数据越多，策略分布误差越小</td>
+<td>样本复杂度较差，且是 worst-case</td>
+</tr>
+<tr>
+<td>Theorem 4</td>
+<td>同 Theorem 3</td>
+<td>constraint violation decays as <span class="arithmatex">\(O(1/N^{0.25+\xi})\)</span></td>
+<td>足够多数据下 cost violation 趋近变小</td>
+<td>依赖经验过程假设和安全样本存在</td>
+</tr>
+</tbody>
+</table>
+<p>Theorem 1 的核心形式可以理解为：</p>
+<div class="arithmatex">\[
+V_r^{\pi^\star}(\rho_0)-V_r^\pi(\rho_0)
+\le
+\frac{2R_m}{(1-\gamma)^2}
+\left(
+\sqrt{\frac{\epsilon_1'}{2}}
++
+\sqrt{\frac{\epsilon_2'}{2}}
+\right).
+\]</div>
+<p>Theorem 2 则把 <span class="arithmatex">\(R_m\)</span> 换成 cost 上界 <span class="arithmatex">\(C_m\)</span>，约束违规 <span class="arithmatex">\(V_c^\pi(\rho_0)-\kappa\)</span> 也由同样的分布距离项控制。</p>
+<p>我的判断：理论部分最有价值的是把 <span class="arithmatex">\(\pi_b\)</span> 换成中间安全策略 <span class="arithmatex">\(\pi_s\)</span>。作者认为 <span class="arithmatex">\(\pi_s\)</span> 是行为策略的安全重构，因此比直接相对行为策略做约束更贴近安全目标，也能给出更紧的直觉解释。但理论仍强依赖 <span class="arithmatex">\(\pi_s\)</span> 与 <span class="arithmatex">\(\pi^\star\)</span> 的 KL 距离假设，实践中这个假设是否成立主要由实验间接支持。</p>
+<h2 id="6">6. 算法与伪代码</h2>
+<p>论文 Algorithm 1 的 PDF 抽文本排版较乱，按正文和算法框可重写如下。</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Algorithm: LSPC Training
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Input:
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  Offline dataset D = {(s, a, r, c, s&#39;)}
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Learning rates for critics, CVAE, latent encoder
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>  AWR temperatures lambda for safety, zeta for reward
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>  Latent restriction epsilon
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Initialize:
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>  Reward critic Q_r and value V_r
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>  Cost critic Q_c and value V_c
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>  CVAE encoder q_alpha(z | s, a)
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>  CVAE decoder p_beta(a | s, z)
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>  Latent safety encoder mu_delta(z | s)
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>Repeat for each gradient step:
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  1. Sample a mini-batch B from the offline dataset D.
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>  2. TD learning with IQL:
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>     2.1 Update reward value V_r by expectile regression.
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>     2.2 Update reward critic Q_r with TD target r + gamma V_r(s&#39;).
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>     2.3 Update cost value V_c by expectile regression.
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>     2.4 Update cost critic Q_c with TD target c + gamma V_c(s&#39;).
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>  3. Learn conservative safe CVAE policy:
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>     3.1 Compute cost advantage A_c(s,a) = V_c(s) - Q_c(s,a).
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>     3.2 Update q_alpha and p_beta with cost-AWR weighted CVAE loss.
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>     3.3 This yields LSPC-S by sampling restricted z and decoding a = p_beta(s,z).
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>  4. Learn reward-optimized latent policy:
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>     4.1 Freeze decoder p_beta.
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>     4.2 Sample z from mu_delta(z | s), then squash/restrict z into (-epsilon, epsilon).
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>     4.3 Decode action a = p_beta(s,z).
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>     4.4 Update mu_delta with reward-AWR objective using A_r(s,a) = Q_r(s,a) - V_r(s).
+<a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+<a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>Output:
+<a id="__codelineno-1-36" name="__codelineno-1-36" href="#__codelineno-1-36"></a>  LSPC-S: conservative safe policy
+<a id="__codelineno-1-37" name="__codelineno-1-37" href="#__codelineno-1-37"></a>  LSPC-O: reward-optimized policy constrained inside latent safety space
+</code></pre></div>
+<h3 id="_2">逐步解释</h3>
+<ol>
+<li><strong>IQL critic 训练</strong>：先学 reward/cost 两套 critic，避免在 critic 学习时查询策略生成的 OOD 动作。</li>
+<li><strong>cost-AWR CVAE</strong>：用低成本动作更高的权重训练 CVAE，使 latent space 的高概率区域偏向安全动作。</li>
+<li><strong>restricted latent sampling</strong>：推理时不从完整 <span class="arithmatex">\(N(0,1)\)</span> 采样，而是把 latent 限制在 <span class="arithmatex">\((-\epsilon,\epsilon)\)</span>，获得更保守的 LSPC-S。</li>
+<li><strong>reward-AWR latent encoder</strong>：不直接修改 decoder，而是在安全 decoder 的输入 latent 上寻找高 reward embedding，得到 LSPC-O。</li>
+<li><strong>安全备份</strong>：LSPC-S 始终存在，可在安全优先场景中作为保守策略；LSPC-O 用于在可接受成本范围内提高奖励。</li>
+</ol>
+<p>理论算法与实践实现之间的差距在于：理论分析用分布距离、Donsker class 和样本复杂度假设解释性能/安全界；实际训练则依赖深度 IQL、AWR 权重、CVAE 表达能力、restriction hyperparameter 和 benchmark 中的 cost labels。</p>
+<h2 id="7">7. 实验与消融</h2>
+<p>论文在 <strong>Metadrive</strong>、<strong>Safety Gymnasium</strong> 和 <strong>Bullet Safety Gym</strong> 上评估。指标为 normalized reward return 和 normalized cost return，其中 cost 小于 1 表示满足安全阈值。每个数据集使用三个目标成本阈值，并跨三个 random seeds 评估。</p>
+<p>Baselines 包括：</p>
+<table>
+<thead>
+<tr>
+<th>Baseline</th>
 <th>思路</th>
-<th>局限</th>
+<th>主要局限</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>BC-Safe</td>
-<td>仅在安全子集上行为克隆</td>
-<td>依赖大量安全数据；无视奖励标签；换 κ 需重新过滤数据</td>
+<td>只在安全子集上行为克隆</td>
+<td>无奖励优化，依赖足够安全数据，换阈值可能重训</td>
 </tr>
 <tr>
 <td>CDT</td>
-<td>序列建模 + 条件生成</td>
-<td>提示条件选择和解释困难；安全与奖励条件难以同时满足</td>
+<td>用 reward/cost 条件做 Decision Transformer</td>
+<td>prompt 选择难，reward/cost 条件可能难同时满足</td>
 </tr>
 <tr>
 <td>CPQ</td>
-<td>对成本 Q 施加保守偏置</td>
-<td>仍偏保守</td>
+<td>conservative policy Q-learning with constraints</td>
+<td>在部分任务 cost 很高或 reward 不稳定</td>
 </tr>
 <tr>
 <td>FISOR</td>
-<td>硬约束 + 可行性引导</td>
-<td>过度保守，奖励性能严重受限</td>
+<td>feasibility-informed safe offline RL</td>
+<td>安全稳定但常过度保守</td>
+</tr>
+<tr>
+<td>LSPC-S</td>
+<td>本文保守安全策略</td>
+<td>安全强但 reward 通常低于 LSPC-O</td>
+</tr>
+<tr>
+<td>LSPC-O</td>
+<td>本文 reward-optimized latent safe policy</td>
+<td>reward 更强，但依赖 restriction 调节安全边界</td>
 </tr>
 </tbody>
 </table>
-<p><strong>核心矛盾</strong>：如何在保证安全约束的同时尽可能优化奖励？如何让安全约束可以随 κ 调整而不需要重新训练？</p>
-<h3 id="_3">论据来源</h3>
-<ul>
-<li>Table 1 的全面比较：FISOR 在低 κ 下安全但奖励极低（如 Metadrive EasySparse: 0.45, 对比 LSPC-O 的 0.94）；CDT 则在低 κ 时安全违规频繁</li>
-<li>实验覆盖 3 个 domain (Metadrive, Safety Gym, Bullet Safety Gym)、多个 κ 阈值和 random seeds</li>
-</ul>
-<hr />
-<h2 id="4">4. 前置知识</h2>
-<h3 id="41-cvae">4.1 条件变分自编码器 (CVAE)</h3>
-<p>CVAE 是 VAE 的条件扩展，目标是在给定条件 y 下最大化条件似然 p_θ(x|y)。训练时最大化变分下界（ELBO）：</p>
-<div class="arithmatex">\[\max_{\alpha,\beta} \mathbb{E}_{z \sim q_\alpha}[\log p_\beta(x|y,z)] - D_{KL}[q_\alpha(z|x,y) \| p(z|x,y)]\]</div>
-<p>其中 q_α 是编码器（encoder），p_β 是解码器（decoder），z 是隐变量。解码器 p_β(x|y,z) 在给定先验 z ~ N(0,I) 时生成符合条件分布的样本。</p>
-<p><strong>在 LSPC 中的作用</strong>：将状态-动作对 (s,a) 编码为隐变量 z，解码器生成符合安全约束的动作。</p>
-<h3 id="42-advantage-weighted-regression-awr">4.2 Advantage Weighted Regression (AWR)</h3>
-<p>AWR 是一种从离线数据中提取策略的方法，通过<strong>优势加权</strong>最大化动作的对数似然：</p>
-<div class="arithmatex">\[\pi = \arg\max_\pi \mathbb{E}_{(s,a)\sim D}\left[\exp(\lambda \cdot A(s,a)) \cdot \log \pi(a|s)\right]\]</div>
-<p>其中 A(s,a) = Q(s,a) - V(s) 是优势函数，λ 是逆温度参数。当 A 为正（动作优于平均），该动作被"加权鼓励"；当 A 为负，该动作被弱化。</p>
-<p><strong>在 LSPC 中的作用</strong>：
-- <strong>Cost-AWR</strong>：用成本优势 A^c（负值意味着安全）加权，提取安全策略 π_s
-- <strong>Reward-AWR</strong>：用奖励优势 A^r 在隐安全约束空间中提取最优策略</p>
-<h3 id="43-implicit-q-learning-iql">4.3 Implicit Q-Learning (IQL)</h3>
-<p>IQL 通过<strong>不对称损失</strong>学习价值函数，不需要采样 OOD 动作：
-- 对 Q 函数使用 expectile 回归（对高值不敏感，对低值敏感——避免低估）
-- 对 V 函数同样使用 expectile 回归</p>
-<p><strong>在 LSPC 中的作用</strong>：同时学习奖励价值 <span class="arithmatex">\((Q_r, V_r)\)</span> 和成本价值 <span class="arithmatex">\((Q_c, V_c)\)</span>，分别用于奖励和成本的 AWR。</p>
-<h3 id="44-latent-space-constraints">4.4 隐空间约束 (Latent Space Constraints)</h3>
-<p>不同于在原始动作空间中添加显式约束（如 KL 散度惩罚），隐空间约束将约束编码到低维 latent space 中。好处：
-- 数据结构更紧凑、更易处理
-- CVAE 的解码器天然地只生成"数据集内"的动作，无需额外 OOD 惩罚
-- 约束的强度可通过 latent space 的缩放来调节</p>
-<hr />
-<h2 id="5">5. 思想与方法</h2>
-<h3 id="51">5.1 核心思想</h3>
-<p>LSPC 的核心洞察是<strong>两阶段解耦</strong>：</p>
-<ol>
-<li><strong>先学安全</strong>：用 CVAE 建模行为策略 → 用 Cost-AWR 从行为策略中提取"保守安全策略" π_s → 隐空间 z 中编码了安全约束</li>
-<li><strong>再学最优</strong>：在 π_s 的隐约束空间中，用 Reward-AWR 最大化奖励，得到 LSPC-O 策略</li>
-</ol>
-<p>这个框架的关键优势是：
-- 安全策略 π_s 独立于奖励最大化，保证有"安全底线"
-- 隐空间约束强度可调（通过限制 z 的采样范围），天然适配不同 κ
-- CVAE 的解码器作为生成模型，保证了动作保持在数据支撑集内，无需显式 OOD 惩罚</p>
-<h3 id="52">5.2 方法细节</h3>
-<p><strong>阶段一：学习保守安全策略 π_s</strong></p>
-<ol>
-<li>用 CVAE (encoder α, decoder β) 在数据集 D 上建模行为策略 π_b：</li>
-<li>最大化 ELBO: log π_b(a|s) ≥ E_z[log p_β(a|s,z)] - D_KL[q_α(z|s,a) || p(z|s,a)]</li>
-<li>
-<p>使编码器/解码器能够重建数据集中的动作</p>
-</li>
-<li>
-<p>用 IQL 学习成本价值函数 <span class="arithmatex">\((Q^c_\psi, V^c_\eta)\)</span></p>
-</li>
-<li>
-<p>用 Cost-AWR 从行为策略中提取安全策略：
-   $<span class="arithmatex">\(\pi_s = \arg\max_\pi \mathbb{E}_{(s,a)\sim D}\left[\exp(\lambda(V^c_\eta(s) - Q^c_\psi(s,a))) \cdot \log \pi(a|s)\right]\)</span>$</p>
-</li>
-<li>成本优势 A^c = V^c - Q^c：当某动作的成本低于平均值时，A^c 为正，该动作被加权鼓励</li>
-<li>在 CVAE 中，这相当于在隐空间中对编码器 α 进行 AWR 微调</li>
-</ol>
-<p><strong>阶段二：约束奖励优化 (LSPC-O)</strong></p>
-<ol>
-<li>
-<p>用 IQL 学习奖励价值函数 <span class="arithmatex">\((Q^r_\phi, V^r_\xi)\)</span></p>
-</li>
-<li>
-<p>在隐安全约束空间中用 Reward-AWR 优化策略 π：
-   $<span class="arithmatex">\(\pi = \arg\max_\pi \mathbb{E}_{(s,a)\sim D}\left[\exp(\tau(Q^r_\phi(s,a) - V^r_\xi(s))) \cdot \log \pi(a|s)\right]\)</span>$</p>
-</li>
-<li>但此时策略 π 受限于隐安全约束：解码器输入 z 的采样范围由安全策略 π_s 的编码器输出的分布决定</li>
-<li>即：z 从 q_α(z|s, a^safe) 中采样，再通过解码器生成动作</li>
-</ol>
-<p><strong>两个变体</strong>:
-- <strong>LSPC-S</strong>：仅用 Cost-AWR，最大化安全性，用于安全优先场景
-- <strong>LSPC-O</strong>：Cost-AWR + Reward-AWR，同时优化安全与奖励</p>
-<h3 id="53">5.3 为什么能解耦安全与奖励？</h3>
-<p><strong>机制链条</strong>:
-1. <strong>CVAE 建模行为策略</strong> → 解码器 p_β(a|s,z) 天然只生成数据支撑集内的动作 → 无需额外 OOD 惩罚
-2. <strong>Cost-AWR 推导 π_s</strong> → 通过成本优势加权，从行为策略中筛选出安全动作的分布
-3. <strong>隐空间安全约束</strong> → π_s 的编码器定义了"安全 z 区域"，后续优化限制在此区域内
-4. <strong>Reward-AWR 在约束内优化</strong> → 在安全区域中选择高奖励动作</p>
-<p><strong>证据强度</strong>: 理论分析（Theorem 1 &amp; 2）给出了性能界和约束违反界的上界；实验（Table 1, Figure 2）显示 LSPC-O 在多数任务上同时实现安全和最高奖励；CVAE 的 OOD 抑制通过隐空间可视化得到验证。</p>
-<hr />
-<h2 id="6">6. 算法与伪代码</h2>
-<h3 id="latent-safety-prioritized-constraints-lspc">算法名称: Latent Safety-Prioritized Constraints (LSPC)</h3>
-<h3 id="_4">训练流程:</h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>算法: LSPC
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>输入: 离线数据集 D (含状态、动作、奖励、成本标签), 成本阈值 κ,
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      逆温度参数 λ (cost), τ (reward)
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>阶段1: 训练价值函数
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  同时训练 (无需 OOD 采样):
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    - 奖励 IQL: (Q^r_ϕ, V^r_ξ)  ← expectile regression on D
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    - 成本 IQL: (Q^c_ψ, V^c_η)  ← expectile regression on D
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>阶段2: 学习保守安全策略 π_s (CVAE + Cost-AWR)
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  2.1 训练 CVAE (encoder α, decoder β):
-<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      最大化: E_z[log p_β(a|s,z)] - D_KL[q_α(z|s,a) || N(0,I)]
-<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>      目的: 编码器/解码器能重建数据集动作
-<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>  2.2 用 Cost-AWR 微调编码器 α_s (推导 π_s):
-<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>      L_cost_awr = -E_{(s,a)~D}[ exp(λ(V^c_η(s) - Q^c_ψ(s,a))) · log π_s(a|s) ]
-<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>      等价于: 鼓励 α_s 对低成本动作输出更高的对数似然
-<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>  2.3 LSPC-S 策略 (安全策略):
-<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>      z ~ N(0,I) 或 z ~ q_αs(z|s, a_safe)
-<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>      a = p_β(a|s, z)  ← 解码器生成安全动作
-<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>阶段3: 约束奖励优化 (LSPC-O)
-<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>  3.1 用 Reward-AWR 在隐约束空间内优化:
-<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>      L_reward_awr = -E_{(s,a)~D}[ exp(τ(Q^r_ϕ(s,a) - V^r_ξ(s))) · log π(a|s) ]
-<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>  3.2 约束施加:
-<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>      - 解码器 β 保持不变 (保证动作在支撑集内)
-<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>      - 编码器在&quot;安全区域&quot;中采样 z
-<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>      - 可选: 对 z 的采样加额外限制 (如缩小方差)
-<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>  3.3 LSPC-O 推理:
-<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>      z ~ N(0, σ²I) (σ &lt; 1 可控制保守程度)
-<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>      a = p_β(a|s, z)
-<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
-<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>输出: LSPC-S (安全优先) 或 LSPC-O (安全+奖励最优)
-</code></pre></div>
-<h3 id="_5">关键超参数:</h3>
+<p>Table 1 的 domain-level 平均结果可以压缩为：</p>
 <table>
 <thead>
 <tr>
-<th>参数</th>
-<th>含义</th>
-<th>影响</th>
+<th>Domain average</th>
+<th style="text-align: right;">BC-Safe reward/cost</th>
+<th style="text-align: right;">CDT reward/cost</th>
+<th style="text-align: right;">CPQ reward/cost</th>
+<th style="text-align: right;">FISOR reward/cost</th>
+<th style="text-align: right;">LSPC-S reward/cost</th>
+<th style="text-align: right;">LSPC-O reward/cost</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>λ</td>
-<td>Cost-AWR 逆温度</td>
-<td>越大越保守</td>
+<td>Metadrive</td>
+<td style="text-align: right;">0.18 / 0.58</td>
+<td style="text-align: right;">0.42 / 0.80</td>
+<td style="text-align: right;">-0.06 / 0.06</td>
+<td style="text-align: right;">0.36 / 0.08</td>
+<td style="text-align: right;">0.67 / 0.17</td>
+<td style="text-align: right;"><strong>0.72 / 0.29</strong></td>
 </tr>
 <tr>
-<td>τ</td>
-<td>Reward-AWR 逆温度</td>
-<td>越大奖励优化越激进</td>
+<td>Safety Gym</td>
+<td style="text-align: right;">0.38 / 0.51</td>
+<td style="text-align: right;">0.55 / 0.85</td>
+<td style="text-align: right;">0.19 / 3.48</td>
+<td style="text-align: right;">0.30 / 0.11</td>
+<td style="text-align: right;">0.32 / 0.32</td>
+<td style="text-align: right;">0.40 / 0.27</td>
 </tr>
 <tr>
-<td>latent dim</td>
-<td>隐空间维度</td>
-<td>编码能力 vs 过拟合</td>
-</tr>
-<tr>
-<td>σ</td>
-<td>隐空间采样方差</td>
-<td>越小越保守 (LSPC-O)</td>
+<td>Bullet Safety Gym</td>
+<td style="text-align: right;">0.52 / 0.82</td>
+<td style="text-align: right;"><strong>0.68 / 1.04</strong></td>
+<td style="text-align: right;">0.33 / 1.12</td>
+<td style="text-align: right;">0.39 / 0.03</td>
+<td style="text-align: right;">0.32 / 0.04</td>
+<td style="text-align: right;">0.54 / 0.20</td>
 </tr>
 </tbody>
 </table>
-<h3 id="-">理论-实践差距:</h3>
-<ul>
-<li>Theorem 1 &amp; 2 给出了性能上界，但依赖于 Assumption 1 &amp; 2（D_KL 假设），且上界带有 (1-γ)² 因子</li>
-<li>理论分析中的 π_s 是基于真实成本的"真正安全策略"，实践中 Cost-AWR 的推导质量依赖于 IQL 对成本函数的估计精度</li>
-</ul>
-<hr />
-<h2 id="7">7. 实验与消融</h2>
-<h3 id="71">7.1 实验设置</h3>
-<ul>
-<li><strong>基准</strong>: DSRL benchmark (Liu et al., 2023a)</li>
-<li><strong>环境</strong> (3 domains):</li>
-<li><strong>Metadrive</strong>: 自动驾驶——Easy/Medium/Hard × Sparse/Mean/Dense = 9 种配置</li>
-<li><strong>Safety Gymnasium</strong>: CarButton, CarGoal, CarPush, SwimmerVel, HopperVel, HalfCheetahVel, Walker2dVel, AntVel 等</li>
-<li><strong>Bullet Safety Gym</strong>: BallRun, CarRun, DroneRun, AntRun, BallCircle, CarCircle, DroneCircle, AntCircle</li>
-<li><strong>Baselines</strong>: BC-Safe, CDT, CPQ, FISOR (4个)</li>
-<li><strong>评估指标</strong>: 归一化奖励回报 + 归一化成本回报；成本 &lt; 1 视为安全</li>
-<li><strong>评估协议</strong>: 每种方法在 3 个不同 κ 阈值、3 个 random seed 下评估</li>
-</ul>
-<h3 id="72-table-1">7.2 主要结果 (Table 1)</h3>
-<p><strong>关键发现</strong>:</p>
-<ul>
-<li><strong>LSPC-O 在 27 个测试配置中平均奖励 0.67</strong>，远超 BC-Safe (0.18)、CDT (0.58)、CPQ (0.42)、FISOR (0.80? 但看原文 Table 1，FISOR 虽然有些任务奖励不错，但安全违规严重)</li>
-<li><strong>LSPC-S 平均成本 0.17</strong>，是安全合规最稳定的方法</li>
-<li><strong>Metadrive</strong>（自动驾驶）: LSPC-O 在 Easy/Medium/Hard 的所有密度下均安全且奖励最优</li>
-<li><strong>Safety Gym</strong>: LSPC-O 在 AntVel 上达到 0.95 奖励（成本 0.07），在 HalfCheetahVel 上达到 0.79 奖励（成本 0.01）</li>
-<li><strong>Bullet Safety Gym</strong>: LSPC-O 在 CarRun 上达到 0.72 奖励（成本 0.00）</li>
-</ul>
-<p><strong>与其他方法的对比亮点</strong>:
-- FISOR 虽然成本控制极好（经常 0.00），但奖励普遍被 LSPC-O 超越
-- CDT 在低 κ 阈值下频繁出现成本超标的不可靠问题
-- BC-Safe 无奖励优化，纯安全策略性能上限低</p>
-<h3 id="73-figure-2">7.3 训练过程分析 (Figure 2)</h3>
-<p>以 Pybullet CarRun 和 Metadrive EasySparse 为例的训练曲线显示：
-- LSPC-O 在<strong>早期快速收敛到安全区域</strong>（约 0.2M steps 即满足成本约束）
-- 此后<strong>奖励持续稳定增长</strong>而不牺牲安全
-- LSPC-S 奖励低于 LSPC-O 但成本更低且更早收敛
-- 对比之下，BC-Safe 奖励停滞（无优化信号），CPQ 奖励震荡，FISOR 安全但奖励低</p>
-<h3 id="74-figure-3-5">7.4 可视化分析 (Figure 3-5)</h3>
-<ul>
-<li><strong>隐空间可视化 (Figure 3)</strong>：CVAE 的 latent space 中，安全样本和不安全样本形成可分离的簇——验证了隐空间编码安全信息的能力</li>
-<li><strong>动作分布 (Figure 4)</strong>：LSPC-O 生成的行动在数据支撑集内（CVAE 解码器保证），且集中于高奖励区域</li>
-<li><strong>成本预测 (Figure 5)</strong>：IQL 学习的成本函数在数据集中可靠，外推误差被 CVAE 的生成约束抑制</li>
-</ul>
-<h3 id="75-figure-12-metadrive-transfer">7.5 迁移实验 (Figure 12, Metadrive Transfer)</h3>
-<p>在<strong>零样本迁移</strong>（训练于某一环境，测试于另一环境）中：
-- Hard Dense 训练的 agent 转移到更简单环境时<strong>奖励甚至超过源环境</strong>
-- Easy Sparse 训练的 agent 转移到更复杂环境时性能下降，但<strong>安全始终维持</strong>
-- 这验证了 LSPC 的安全约束在不同分布下具有泛化能力</p>
-<hr />
+<p>解释：LSPC-O 在 Metadrive 平均 reward 最高且 cost &lt; 1；在 Safety Gym 中 reward 不总是最高，但安全性明显优于 CDT/CPQ；在 Bullet Safety Gym 中 CDT reward 平均更高但 cost &gt; 1，不满足安全，LSPC-O 则保持 cost &lt; 1。</p>
+<p>代表性任务对比如下：</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>现象</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Metadrive MediumSparse</td>
+<td>CDT reward 0.87 但 cost 1.10；LSPC-O reward 0.94 cost 0.12</td>
+<td>LSPC-O 同时高 reward 和安全</td>
+</tr>
+<tr>
+<td>Metadrive MediumDense</td>
+<td>CDT cost 2.41 unsafe；LSPC-O reward 0.93 cost 0.01</td>
+<td>CDT 条件控制不稳定，LSPC-O 更稳</td>
+</tr>
+<tr>
+<td>Safety Gym HopperVel</td>
+<td>LSPC-O reward 0.69 cost 0.00</td>
+<td>LSPC-O 能在部分 locomotion safety task 中兼顾奖励和安全</td>
+</tr>
+<tr>
+<td>Bullet CarRun</td>
+<td>CDT reward 0.99 cost 0.65；LSPC-O reward 0.97 cost 0.13</td>
+<td>LSPC-O reward 接近最好且 cost 更低</td>
+</tr>
+</tbody>
+</table>
+<p>消融和可视化：</p>
+<table>
+<thead>
+<tr>
+<th>Figure / Study</th>
+<th>内容</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Figure 2</td>
+<td>Pybullet Car Run 与 Metadrive Easy Sparse 训练曲线</td>
+<td>LSPC-O 在训练中保持较低 cost，同时 reward 优于或接近 baselines；FISOR 安全但 reward 低</td>
+</tr>
+<tr>
+<td>Figure 3</td>
+<td>action-space KDE/convex hull 可视化</td>
+<td>LSPC-S 收缩到安全区域，LSPC-O 在受限安全区域内选择高 <span class="arithmatex">\(Q_r\)</span> 动作</td>
+</tr>
+<tr>
+<td>Figure 4</td>
+<td>latent restriction hyperparameter <span class="arithmatex">\(\epsilon\)</span></td>
+<td>放宽 restriction 提高 reward，但也提高 cost；<span class="arithmatex">\(\epsilon\)</span> 控制安全-奖励权衡</td>
+</tr>
+<tr>
+<td>Figure 5</td>
+<td>CVAE 和 safety encoder 角色反转</td>
+<td>反转后难以同时获得低 cost 和高 reward，说明原架构中“CVAE 学安全、encoder 学奖励”的分工重要</td>
+</tr>
+<tr>
+<td>Figure 12</td>
+<td>Metadrive zero-shot transfer</td>
+<td>Hard Dense 训练的 agent 转移到更简单设置时 reward 可提升，并保持安全；Easy Sparse 转移到复杂环境时性能下降</td>
+</tr>
+</tbody>
+</table>
+<p>实验的强点是覆盖多 domain、多阈值和多个 baseline，并报告 reward/cost 双指标。弱点是部分图表以归一化指标呈现，实际部署中的原始 cost 语义需要结合任务理解；此外，人为设定的 latent restriction <span class="arithmatex">\(\epsilon\)</span> 对性能影响明显，论文也承认未来需要理论上指导如何选择 <span class="arithmatex">\(\epsilon\)</span>。</p>
 <h2 id="8">8. 展望</h2>
-<h3 id="_6">研究启发</h3>
+<p>研究启发：</p>
 <ol>
-<li>
-<p><strong>隐空间约束 = 自然 OOD 屏障</strong>：CVAE 解码器的生成范围天然受限于训练分布的支持集，这使得 LSPC 无需显式 KL/MMD 惩罚即可保证 OOD 安全——这是一种更优雅的行为正则化方式。</p>
-</li>
-<li>
-<p><strong>安全-奖励的两阶段解耦</strong>：先推导安全底线，再从安全底线出发做奖励优化。这种"先保命再求优"的策略可推广到其他约束 RL 问题（如资源约束、公平性约束）。</p>
-</li>
-<li>
-<p><strong>Cost-AWR 是安全策略提取的自然语言</strong>：通过成本优势函数加权，Cost-AWR 天然地从混合数据中"筛选"出安全动作——无需显式过滤数据子集。</p>
-</li>
-<li>
-<p><strong>理论-算法的有机结合</strong>：Theorem 1-4 的性能界和样本复杂度分析直接与 LSPC 的架构设计挂钩（π_s 替换 π_b 收紧 KL 上界），这是少见的"算法设计紧跟理论指导"的案例。</p>
-</li>
-<li>
-<p><strong>自动驾驶是 Safe Offline RL 的理想场景</strong>：Metadrive 提供了真实的自动驾驶安全约束（碰撞=成本），离线数据（事故数据）天然适合 safe offline RL 范式。</p>
-</li>
+<li>Safe offline RL 可以不只依赖显式 Lagrangian 或 hard feasibility constraint，也可以把安全边界编码进生成模型的 latent space。</li>
+<li>LSPC-S / LSPC-O 的双策略设计很实用：安全优先时用 LSPC-S，性能优先且有阈值空间时用 LSPC-O。</li>
+<li>对 offline RL 来说，生成模型不仅可以做 behavior cloning sampler，也可以作为“可控约束空间”的载体。</li>
+<li>reward 和 cost 用两套 critic，再用不同 AWR 目标提取策略，是一种清晰的安全-奖励解耦方式。</li>
 </ol>
-<h3 id="_7">局限性</h3>
+<p>局限与开放问题：</p>
 <ol>
-<li><strong>CVAE 容量限制</strong>：CVAE 的生成质量决定了安全策略的表达力上限。在极高维动作空间或极度多模态的行为数据中，CVAE 可能难以准确建模。</li>
-<li><strong>成本函数必须可标注</strong>：LSPC 假设离线数据包含成本标签，而实际应用中安全成本的定义和标注可能困难（需要领域专家人工标注或仿真器）。</li>
-<li><strong>IQL 的保守性隐式而非显式</strong>：IQL 通过 in-sample 学习避免 OOD，但没有显式的悲观惩罚，在极端数据稀缺时可能仍会过估。</li>
-<li><strong>隐空间约束强度的调控缺乏自动化</strong>：σ 的调节需要人工设定，缺乏自适应机制来匹配不同的 κ。</li>
-<li><strong>理论假设强</strong>：Assumption 1 &amp; 2 的 D_KL 上界假设在数据覆盖差的时候可能不成立。</li>
+<li><span class="arithmatex">\(\epsilon\)</span> 的选择仍依赖经验调参；论文没有给出如何根据 <span class="arithmatex">\(\kappa\)</span> 自动选择 restriction 的理论规则。</li>
+<li>理论保证依赖 <span class="arithmatex">\(\pi\)</span>、<span class="arithmatex">\(\pi_s\)</span>、<span class="arithmatex">\(\pi^\star\)</span> 的分布距离假设，实践中难以直接验证。</li>
+<li>CVAE latent space 是否真的稳定对应“安全”取决于数据质量和 cost labels；如果安全样本太少或标签噪声大，LSPC 可能退化。</li>
+<li>实验主要是仿真 benchmark，真实自动驾驶/机器人部署仍需要进一步验证。</li>
+<li>LSPC-O 的 reward 优化仍可能在放宽 restriction 时提高 cost，因此需要部署时的安全监控或 fallback 策略。</li>
 </ol>
-<h3 id="_8">后续研究方向</h3>
+<p>后续研究方向：</p>
 <ol>
-<li><strong>自适应隐空间约束调节</strong>：设计一种根据 κ 自动调整 latent space 约束强度（σ）的机制，实现无需重训练即可切换安全等级。</li>
-<li><strong>Online fine-tuning 版本</strong>：在离线训练基础上加入在线微调，利用 CVAE 的安全约束作为"安全屏障"，允许有限探索。</li>
-<li><strong>多目标安全约束扩展</strong>：将 LSPC 框架扩展到多维度成本约束（如同时限制碰撞率、能耗、急刹车次数），在隐空间中编码多维约束结构。</li>
+<li><strong>Adaptive latent restriction</strong>：根据目标成本阈值 <span class="arithmatex">\(\kappa\)</span> 和在线/离线风险估计自动调节 <span class="arithmatex">\(\epsilon\)</span>，减少人工超参选择。</li>
+<li><strong>Uncertainty-aware LSPC</strong>：在 CVAE latent space 中加入 cost uncertainty，避免在安全标签稀疏区域过度自信。</li>
+<li><strong>Diffusion-based latent safety policy</strong>：用 diffusion latent model 替代 CVAE，检验更强生成模型是否能提升复杂多模态动作空间中的安全-奖励权衡。</li>
 </ol>
-<hr />
-<h2 id="_9">链接</h2>
+<h2 id="links">Links</h2>
 <ul>
-<li><strong>OpenReview</strong>: <a href="https://openreview.net/forum?id=bDt5qc7TfO">https://openreview.net/forum?id=bDt5qc7TfO</a></li>
-<li><strong>arXiv</strong>: <a href="https://arxiv.org/abs/2412.08794">https://arxiv.org/abs/2412.08794</a></li>
-<li><strong>代码</strong>: <a href="https://github.com/prajwalkoirala/LSPC">https://github.com/prajwalkoirala/LSPC</a></li>
-<li><strong>DBLP</strong>: <a href="https://dblp.org/rec/conf/iclr/KoiralaJSF25">https://dblp.org/rec/conf/iclr/KoiralaJSF25</a></li>
+<li>Paper page: <a href="https://openreview.net/forum?id=bDt5qc7TfO">OpenReview</a></li>
+<li>arXiv: <a href="https://arxiv.org/abs/2412.08794">arXiv:2412.08794</a></li>
+<li>Code: <a href="https://github.com/PrajwalKoirala/LSPC-Safe-Offline-RL">PrajwalKoirala/LSPC-Safe-Offline-RL</a></li>
 </ul>
 </article>
 

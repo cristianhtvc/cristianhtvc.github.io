@@ -185,3 +185,43 @@ cristianhtvc.github.io
 ```text
 https://cristianhtvc.github.io/
 ```
+
+## 本地一键上传系统
+
+如果只是新增一篇 ORL Markdown 笔记，可以不再手动复制文件、改 `papers.json`、构建和发布。进入源目录后启动本地上传后台：
+
+```powershell
+cd C:\Users\chenwy\Documents\GitHub\cristianhtvc.github.io\mkdocs-source
+.\scripts\start_uploader.bat
+```
+
+启动脚本会自动寻找可用 Python，并在缺少 MkDocs 时安装 `requirements.txt`。
+
+如果你想直接运行 PowerShell 脚本，请使用显式 PowerShell 调用，避免 Windows 把 `.ps1` 当作普通文件打开：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start_uploader.ps1
+```
+
+浏览器打开：
+
+```text
+http://127.0.0.1:8765/
+```
+
+点击上传按钮并选择 `.md` 文件即可。后台会先运行 `scripts/content_review.py` 检查：
+
+- front matter 是否包含 `title`、`author`、`affiliations`、`year`、`source`、`tags`
+- 一级标题是否与 `title` 一致
+- 标题后是否包含“一句话概括”和论文定位
+- 八个二级段落是否依次为“第一作者相关信息、研究问题、背景知识、问题分析、思想与方法、算法与伪代码、实验与消融、展望”
+- 末尾是否包含 `## Links`，并提供论文和代码链接
+
+审查不通过时会弹窗并拒绝写入；审查通过后会自动保存 Markdown、更新 `data/papers.json`、运行 MkDocs 构建，并把静态页面发布回仓库根目录。
+
+如需在普通构建时也强制审查所有已登记笔记，可以设置：
+
+```powershell
+$env:ORL_STRICT_CONTENT_REVIEW = "1"
+python scripts\generate_site.py
+```

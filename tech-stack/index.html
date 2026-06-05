@@ -403,6 +403,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      一键上传系统
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3776,6 +3785,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      一键上传系统
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -3834,6 +3852,16 @@
 <td>保存长文笔记原稿，由脚本挂载到网页中</td>
 </tr>
 <tr>
+<td>内容审查</td>
+<td><code>scripts/content_review.py</code></td>
+<td>检查 ORL 笔记 front matter、八段结构和论文/代码链接</td>
+</tr>
+<tr>
+<td>上传后台</td>
+<td><code>scripts/upload_server.py</code></td>
+<td>提供本地网页上传入口，审查通过后自动写入、构建并发布</td>
+</tr>
+<tr>
 <td>页面生成</td>
 <td><code>scripts/generate_site.py</code></td>
 <td>从 JSON 自动生成首页、导航、索引页和论文页</td>
@@ -3853,6 +3881,15 @@
 <li>运行 <code>mkdocs serve</code> 本地预览，确认公式、标题和目录正常。</li>
 <li>运行 <code>mkdocs build</code> 生成 <code>site/</code> 静态目录并部署。</li>
 </ol>
+<h2 id="_4">一键上传系统</h2>
+<p>本仓库现在保留原有手动维护方式，同时提供本地上传后台：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd </span><span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">chenwy</span><span class="p">\</span><span class="n">Documents</span><span class="p">\</span><span class="n">GitHub</span><span class="p">\</span><span class="n">cristianhtvc</span><span class="p">.</span><span class="n">github</span><span class="p">.</span><span class="n">io</span><span class="p">\</span><span class="n">mkdocs-source</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">.\</span><span class="n">scripts</span><span class="p">\</span><span class="n">start_uploader</span><span class="p">.</span><span class="n">bat</span>
+</code></pre></div>
+<p>启动脚本会自动寻找 Python，并在缺少 MkDocs 时安装 <code>requirements.txt</code>。如果需要直接运行 PowerShell 脚本，请使用 <code>powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\start_uploader.ps1</code>，避免 Windows 把 <code>.ps1</code> 当作普通文件打开。打开 <code>http://127.0.0.1:8765/</code> 后，点击上传按钮选择 <code>.md</code> 文件。后台会先执行内容审查；通过后自动推断会议和年份、保存到 <code>data/notes/orl/</code>、更新 <code>data/papers.json</code>、重新构建 MkDocs，并把构建结果发布回仓库根目录。若要让普通构建也强制审查所有已登记笔记，可设置：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">$env:ORL_STRICT_CONTENT_REVIEW</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">python</span> <span class="n">scripts</span><span class="p">\</span><span class="n">generate_site</span><span class="p">.</span><span class="n">py</span>
+</code></pre></div>
 
 
 

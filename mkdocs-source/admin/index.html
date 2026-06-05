@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ORL 笔记上传</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="workspace" aria-labelledby="page-title">
+        <div class="masthead">
+          <p class="eyebrow">ORL Paper Notes</p>
+          <h1 id="page-title">Markdown 上传台</h1>
+          <p class="subtle">上传通过审查的论文笔记后，后台会写入源文件、更新索引、重建并发布本地站点。</p>
+        </div>
+
+        <form id="upload-form" class="upload-panel">
+          <input id="file-input" name="file" type="file" accept=".md,text/markdown" hidden>
+          <button id="pick-file" class="upload-button" type="button">
+            <span class="button-icon" aria-hidden="true">↑</span>
+            上传 .md 文件
+          </button>
+
+          <label class="switch">
+            <input id="replace-input" name="replace" type="checkbox">
+            <span>覆盖同名论文</span>
+          </label>
+
+          <div id="drop-zone" class="drop-zone">
+            <strong id="file-name">尚未选择文件</strong>
+            <span>可直接拖入 Markdown 文件</span>
+          </div>
+        </form>
+
+        <section class="status-grid" aria-live="polite">
+          <article class="status-box">
+            <span>审查状态</span>
+            <strong id="review-status">等待上传</strong>
+          </article>
+          <article class="status-box">
+            <span>目标入口</span>
+            <strong id="target-status">自动推断</strong>
+          </article>
+          <article class="status-box">
+            <span>发布状态</span>
+            <strong id="publish-status">未开始</strong>
+          </article>
+        </section>
+
+        <section class="result-panel" aria-labelledby="result-title">
+          <h2 id="result-title">审查报告</h2>
+          <ul id="message-list"></ul>
+          <div id="success-panel" class="success-panel" hidden>
+            <p><span>源文件</span><strong id="saved-path"></strong></p>
+            <p><span>页面路径</span><strong id="page-path"></strong></p>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <dialog id="notice-dialog">
+      <h2 id="dialog-title">上传结果</h2>
+      <p id="dialog-body"></p>
+      <button id="dialog-close" type="button">知道了</button>
+    </dialog>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

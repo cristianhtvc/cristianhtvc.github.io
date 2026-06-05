@@ -253,13 +253,17 @@
               },
               {
                 "title": "Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning",
-                "authors": "详见笔记",
-                "venue": "ICLR 2025",
+                "authors": "Prajwal Koirala, Zhanhong Jiang, Soumik Sarkar, Cody Fleming",
+                "venue": "ICLR 2025 Poster",
                 "type": "精读",
                 "status": "已整理",
-                "summary": "> **论文标题**: Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning",
+                "summary": "LSPC 先用 CVAE 从离线数据中学习一个保守安全策略与 latent safety constraint，再用 reward-Advantage Weighted Regression 在受限隐空间中寻找高回报动作，从而缓解 safe offline RL 中“过度保守低奖励”和“放松约束高风险”的矛盾。",
                 "tags": [
-                  "Offline RL"
+                  "Safe Offline RL",
+                  "Latent Safety Constraints",
+                  "CVAE",
+                  "Advantage Weighted Regression",
+                  "Constrained MDP"
                 ],
                 "source_markdown": "data/notes/orl/iclr/2025/[ICLR_2025] Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning.md"
               },

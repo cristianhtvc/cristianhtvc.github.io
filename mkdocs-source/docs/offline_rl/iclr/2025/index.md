@@ -116,9 +116,9 @@ description: "ICLR 2025 离线强化学习论文笔记"
 <article class="paper-card">
 <p class="eyebrow">精读 · 已整理</p>
 <h2><a href="latent-safety-constrained-policy-approach-for-safe-offline-reinforcement-learning/">Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning</a></h2>
-<p class="paper-meta">详见笔记 · ICLR 2025</p>
-<p>> **论文标题**: Latent Safety-Constrained Policy Approach for Safe Offline Reinforcement Learning</p>
-<div class="tag-row"><span>Offline RL</span></div>
+<p class="paper-meta">Prajwal Koirala, Zhanhong Jiang, Soumik Sarkar, Cody Fleming · ICLR 2025 Poster</p>
+<p>LSPC 先用 CVAE 从离线数据中学习一个保守安全策略与 latent safety constraint，再用 reward-Advantage Weighted Regression 在受限隐空间中寻找高回报动作，从而缓解 safe offline RL 中“过度保守低奖励”和“放松约束高风险”的矛盾。</p>
+<div class="tag-row"><span>Safe Offline RL</span><span>Latent Safety Constraints</span><span>CVAE</span><span>Advantage Weighted Regression</span><span>Constrained MDP</span></div>
 </article>
 <article class="paper-card">
 <p class="eyebrow">精读 · 已整理</p>
